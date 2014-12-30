@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.data.mappers.TechArticleMapper">
+
+	<insert id="addTechArticle" parameterType="TechArticle" useGeneratedKeys="true" keyProperty="articleId">
+		INSERT INTO
+		tech_article(article_title,article_content,article_post_date,article_url,article_site,article_tag)
+		VALUES(#{articleTitle},#{articleContent},#{articlePostDate},#{articleUrl},#{articleSite},#{articleTag})
+	</insert>
+	<select id="selectTechArticleUrls" resultType="string" parameterType="java.util.Map">
+		select article_url from tech_article limit #{offset},#{rows}
+	</select>
+	
+	<select id="getTechArticleTotal" resultType="long">
+		select count(*) from tech_article
+	</select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.data.mappers.TechNewsMapper">
+
+	<insert id="addTechNews" parameterType="TechNews"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		tech_news(title,content,post_date,author,media_url,media,thumbnails_url)
+		VALUES(#{title},#{content},#{postDate},#{author},#{mediaUrl},#{media},#{thumbnailsUrl})
+	</insert>
+
+	<select id="selectTechNewsUrls" resultType="string" parameterType="java.util.Map">
+		select media_url from tech_news limit #{offset},#{rows}
+	</select>
+	
+	<select id="getTechNewsTotal" resultType="long">
+		select count(*) from tech_news
+	</select>
+</mapper>
