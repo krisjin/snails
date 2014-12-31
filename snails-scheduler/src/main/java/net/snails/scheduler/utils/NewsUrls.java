@@ -14,7 +14,7 @@ public class NewsUrls {
 		int totalPageNum=1;
 //		TechNewsService ns = new TechNewsService();
 		TechArticleService ns = new TechArticleService();
-		long totalCounts =ns.getTechArticleTotal();
+		long totalCounts =33;//ns.getTechArticleTotal();
 		System.out.println("共有："+totalCounts);
 		totalPageNum = (int) (Math.ceil((double) totalCounts / (double)perPageCount));
 		
@@ -24,7 +24,7 @@ public class NewsUrls {
 		for(int i=0;i<=totalPageNum;i++){
 			offset=i*perPageCount;
 			
-			List urls = ns.getArticleUrls(offset, perPageCount);
+			List urls =null;// ns.getArticleUrls(offset, perPageCount);
 			
 			for(int j=0;j<urls.size()-1;j++){
 				String url =(String)urls.get(j);

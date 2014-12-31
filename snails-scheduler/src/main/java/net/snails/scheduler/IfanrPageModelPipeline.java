@@ -1,11 +1,12 @@
-package net.snails.scheduler.schedulder;
+package net.snails.scheduler;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import net.snails.scheduler.model.News;
-import net.snails.scheduler.service.NewsService;
+import net.snails.scheduler.model.TechNews;
+import net.snails.scheduler.service.TechNewsService;
 import net.snails.scheduler.utils.BloomFilter;
 import net.snails.scheduler.utils.DateUtil;
 import us.codecraft.webmagic.Task;
@@ -18,56 +19,50 @@ import com.mysql.jdbc.StringUtils;
  * @date 2014-7-9上午11:31:23
  */
 
-public class HuXiuPageModelPipeline implements PageModelPipeline {
+public class IfanrPageModelPipeline implements PageModelPipeline {
+	AtomicInteger count = new AtomicInteger(1);
 	int capicity = 1000000;
 	int initDataSize = 800000;
 	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
-	private NewsService newsService = new NewsService();
+	private TechNewsService techNewsService = new TechNewsService();
 
 	public void process(Object obj, Task task) {
 		FileWriter writer = null;
 
 		bloomfilter.init("e:/tech-news.txt");
-		if (obj instanceof HuXiuCrawler) {
-			HuXiuCrawler qqt = (HuXiuCrawler) obj;
+		if (obj instanceof IfanrCrawler) {
+			IfanrCrawler qqt = (IfanrCrawler) obj;
 			String title = qqt.getTitle();
 			String date = qqt.getDate();
 			String content = qqt.getContent();
 
-			News news = new News();
-			news.setFolderId(2L);
-			news.setStatus(1);
-			news.setMedia("虎嗅");
-			news.setMediaUrl(qqt.getUrl());
+			TechNews techNews = new TechNews();
+			techNews.setMedia("爱范儿");
+			techNews.setMediaUrl(qqt.getUrl());
 			if (StringUtils.isNullOrEmpty(title)) {
 				return;
 			}
 
 			if (bloomfilter.contains(qqt.getUrl())) {
-				System.out.println(qqt.getUrl() +" have repeat...");
+				System.out.println(qqt.getUrl() + " have repeat...");
 				return;
 			}
 
-			if (StringUtils.isNullOrEmpty(qqt.getImgUrl())) {
-				news.setThumbnailsUrl("");
-			} else {
-				news.setThumbnailsUrl(qqt.getImgUrl());
-			}
 			if (StringUtils.isNullOrEmpty(qqt.getAuthor())) {
-				news.setAuthor("");
+				techNews.setAuthor("");
 			} else {
-				news.setAuthor(qqt.getAuthor());
+				techNews.setAuthor(qqt.getAuthor());
 			}
 
 			if (date == null) {
-				news.setPostDate(new Date());
+				techNews.setPostDate(new Date());
 			} else {
-				Date d = DateUtil.convertStringDateTimeToDate(date, "yyyy-MM-dd HH:mm:ss");
-				news.setPostDate(d);
+				Date d = DateUtil.convertStringDateTimeToDate(DateUtil.parseIfanrPostDate(date), "yyyy-MM-dd HH:mm");
+				techNews.setPostDate(d);
 			}
-			news.setTitle(title.trim());
-			news.setContent(content);
-			newsService.addNews(news);
+			techNews.setTitle(title.trim());
+			techNews.setContent(content);
+			techNewsService.addTechNews(techNews);
 			try {
 				writer = new FileWriter("e:/tech-news.txt", true);
 				writer.write((qqt.getUrl() + "\n"));
@@ -75,7 +70,7 @@ public class HuXiuPageModelPipeline implements PageModelPipeline {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println("保存:" + news.getTitle());
+			System.out.println(count.incrementAndGet());
 
 		}
 	}

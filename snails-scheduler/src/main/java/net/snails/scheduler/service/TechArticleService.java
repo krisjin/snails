@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import net.snails.scheduler.dao.TechArticleMapper;
-import net.snails.scheduler.dao.TechNewsMapper;
 import net.snails.scheduler.model.TechArticle;
 import net.snails.scheduler.utils.MyBatisUtil;
 
@@ -18,9 +17,8 @@ import org.slf4j.LoggerFactory;
  * @author krisjin
  * @date 2014-7-9上午10:42:53
  */
-
 public class TechArticleService {
-
+	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	public void addTechArticle(TechArticle techArticle) {
@@ -48,7 +46,6 @@ public class TechArticleService {
 	}
 
 	public List getArticleUrls(long offset, long row) {
-
 		List urlList = new ArrayList();
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try {
@@ -61,8 +58,6 @@ public class TechArticleService {
 		} finally {
 			sqlSession.close();
 		}
-
 		return urlList;
 	}
-
 }

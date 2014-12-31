@@ -1,4 +1,4 @@
-package net.snails.scheduler.schedulder;
+package net.snails.scheduler;
 
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;

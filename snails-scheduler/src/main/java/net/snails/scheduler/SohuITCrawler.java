@@ -1,4 +1,4 @@
-package net.snails.scheduler.schedulder;
+package net.snails.scheduler;
 
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;
@@ -11,33 +11,29 @@ import us.codecraft.webmagic.model.annotation.TargetUrl;
  * @date 2014-7-9下午2:28:54
  */
 
-@TargetUrl("http://tech.qq.com/a/\\d+/\\d+.htm")
-public class TencentTechCrawler {
+@TargetUrl("http://it.sohu.com/\\d+/n\\d+.shtml")
+public class SohuITCrawler {
 
-	@ExtractBy(value = "//div[@class='hd']/h1/text()")
+	@ExtractBy(value = "//h1[@itemprop='headline']/text()")
 	private String title;
 
-	@ExtractBy(value = "//div[@id='Cnt-Main-Article-QQ']/outerHtml()")
+	@ExtractBy(value = "//div[@id='contentText']/outerHtml()")
 	private String content;
 
-	@ExtractBy(value = "//span[@class='pubTime']/text()")
+	@ExtractBy(value = "//span[@id='pubtime_baidu']/text()")
 	private String date;
-	
-	@ExtractBy(value = "//span[@class='article-time']/text()")
-	private String date2;
-	
 
-	@ExtractBy(value = "//span[@class='auth']/text()")
+	@ExtractBy(value = "//span[@id='author_baidu']/text()")
 	private String author;
 
 	@ExtractByUrl
 	private String url;
 	
-	@ExtractBy(value="//p[@align='center']/img/@src")
-	private String imgUrl;
+//	@ExtractBy(value="//span[@class='span-img']/img/@src")
+//	private String imgUrl;
 
 	public static void main(String[] args) {
-		OOSpider.create(Site.me(), new TencentTechPageModelPipeline(),TencentTechCrawler.class).thread(40).addUrl("http://tech.qq.com").run();
+		OOSpider.create(Site.me(), new SohuITPageModelPipeline(),SohuITCrawler.class).thread(60).addUrl("http://it.sohu.com/20140225/n395601377.shtml").run();
 	}
 
 	public String getTitle() {
@@ -63,14 +59,5 @@ public class TencentTechCrawler {
 	public String getUrl() {
 		return url;
 	}
-
-	public String getImgUrl() {
-		return imgUrl;
-	}
-
-	public String getDate2() {
-		return date2;
-	}
-
 	
 }

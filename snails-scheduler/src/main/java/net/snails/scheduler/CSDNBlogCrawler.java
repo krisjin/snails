@@ -1,10 +1,9 @@
-package net.snails.scheduler.schedulder;
+package net.snails.scheduler;
 
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.OOSpider;
 import us.codecraft.webmagic.model.annotation.ExtractBy;
 import us.codecraft.webmagic.model.annotation.ExtractByUrl;
-import us.codecraft.webmagic.model.annotation.HelpUrl;
 import us.codecraft.webmagic.model.annotation.TargetUrl;
 
 /**
@@ -22,16 +21,12 @@ public class CSDNBlogCrawler {
 	private String content;
 
 	@ExtractBy(value = "//span[@class='link_postdate']/text()")
-	private String date;
-
-//	@ExtractBy(value = "//span[@id='author_baidu']/text()")
-//	private String author;
+	private 
+	String date;
 
 	@ExtractByUrl
 	private String url;
 	
-//	@ExtractBy(value="//span[@class='span-img']/img/@src")
-//	private String imgUrl;
 
 	public static void main(String[] args) {
 		OOSpider.create(Site.me().setRetryTimes(2), new CSDNBlogPageModelPipeline(),CSDNBlogCrawler.class).thread(40).addUrl("http://blog.csdn.net/").run();

@@ -21,9 +21,11 @@
 	         http://www.springframework.org/schema/cache/spring-cache.xsd
 	         http://www.springframework.org/schema/task 
 	         http://www.springframework.org/schema/task/spring-task.xsd">
-	<!-- <import resource="classpath:mongodb.xml"/> -->
+	<import resource="classpath:applicationContext-quartz.xml"/>
+	
 	<context:component-scan base-package="net.snails.scheduler" />
-
+	<context:component-scan base-package="net.snails.scheduler.dao" resource-pattern="*Dao.class" />
+	
 	<mvc:annotation-driven />
 
 	<mvc:default-servlet-handler />
@@ -31,8 +33,12 @@
 	<tx:annotation-driven />
 
 	<task:annotation-driven />
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+	
+<!-- 	<bean id="csdnBlogJob" class="net.snails.scheduler.CsdnBlogJob"></bean> -->
 
-	<cache:annotation-driven />
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -42,73 +48,55 @@
 		</property>
 	</bean>
 
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-		init-method="init" destroy-method="close">
-		<!-- 基本属性 url、user、password -->
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.user}" />
-		<property name="password" value="${jdbc.password}" />
-
-		<!-- 配置初始化大小、最小、最大 -->
-		<property name="initialSize" value="15" />
-		<property name="minIdle" value="1" />
-		<property name="maxActive" value="20" />
-
-		<!-- 配置获取连接等待超时的时间 -->
-		<property name="maxWait" value="60000" />
-
-		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-		<property name="timeBetweenEvictionRunsMillis" value="60000" />
-
-		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-		<property name="minEvictableIdleTimeMillis" value="300000" />
-
-		<property name="validationQuery" value="SELECT 'x'" />
-		<property name="testWhileIdle" value="true" />
-		<property name="testOnBorrow" value="false" />
-		<property name="testOnReturn" value="false" />
-
-		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-		<property name="poolPreparedStatements" value="false" />
-		<property name="maxPoolPreparedStatementPerConnectionSize"
-			value="20" />
-
-		<!-- 配置监控统计拦截的filters -->
-		<property name="filters" value="stat" />
-	</bean>
-
-	<bean id="druid-stat-interceptor"
-		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
-	</bean>
-
-	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
-		scope="prototype">
-		<property name="patterns">
-			<list>
-				<value>com.hx.dmcp.service.*</value>
-				<value>com.hx.dmcp.dao.*</value>
-			</list>
-		</property>
-	</bean>
-
-	<aop:config>
-		<aop:advisor advice-ref="druid-stat-interceptor"
-			pointcut-ref="druid-stat-pointcut" />
-	</aop:config>
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close"> -->
+<!-- 		<property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/dmcp" /> -->
+<!-- 		<property name="username" value="root" /> -->
+<!-- 		<property name="password" value="" /> -->
+<!-- 		<property name="initialSize" value="3"></property> -->
+<!-- 		<property name="maxActive" value="10"></property> -->
+<!-- 		<property name="maxIdle" value="${jdbc.maxIdle}"></property> -->
+<!-- 		<property name="minIdle" value="${jdbc.minIdle}"></property> -->
+<!-- 		<property name="maxWait" value="${jdbc.maxWait}"></property> -->
+<!-- 	</bean> -->
 
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
 
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> -->
+<!-- 		<property name="driverClass" value="${jdbc.driverClass}" />		数据库驱动 -->
+<!-- 		<property name="jdbcUrl" value="${jdbc.url}" />		连接URL串 -->
+<!-- 		<property name="user" value="${jdbc.username}" />		连接用户名 -->
+<!-- 		<property name="password" value="${jdbc.password}" />		连接密码 -->
+<!-- 		<property name="initialPoolSize" value="5" />		初始化连接池时连接数量为5个 -->
+<!-- 		<property name="minPoolSize" value="5" />		允许最小连接数量为5个 -->
+<!-- 		<property name="maxPoolSize" value="20" />		允许最大连接数量为20个 -->
+<!-- 		<property name="numHelperThreads" value="20" />			允许最大连接数量为20个 -->
+<!-- 		<property name="maxStatements" value="100" />		允许连接池最大生成100个PreparedStatement对象 -->
+<!-- 		<property name="maxIdleTime" value="3600" />		连接有效时间，连接超过3600秒未使用，则该连接丢弃 -->
+<!-- 		<property name="acquireIncrement" value="2" />		连接用完时，一次产生的新连接步进值为2 -->
+<!-- 		<property name="acquireRetryAttempts" value="5" />		获取连接失败后再尝试10次，再失败则返回DAOException异常 -->
+<!-- 		<property name="acquireRetryDelay" value="600" />		获取下一次连接时最短间隔600毫秒，有助于提高性能 -->
+<!-- 		<property name="testConnectionOnCheckin" value="true" />		检查连接的有效性，此处小弟不是很懂什么意思 -->
+<!-- 		<property name="idleConnectionTestPeriod" value="1200" />		每个1200秒检查连接对象状态 -->
+<!-- 		<property name="checkoutTimeout" value="10000" />		获取新连接的超时时间为10000毫秒 -->
+<!-- 	</bean> -->
 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
-		<property name="basePackage" value="net.snails.scheduler.dao" />
-	</bean>
+
+
+<!-- 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+<!-- 		<property name="mapperLocations" value="classpath:/net/snails/scheduler/dao/*.xml"></property>  -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
+<!-- 	<property name="annotationClass" value="org.springframework.stereotype.Repository" /> -->
+<!-- 		<property name="basePackage" value="net.snails.scheduler.dao" /> -->
+<!-- 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="transactionManager" -->
+<!-- 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 	</bean> -->
 
 </beans>

@@ -1,4 +1,4 @@
-package net.snails.scheduler.schedulder;
+package net.snails.scheduler;
 
 import java.io.FileWriter;
 import java.io.IOException;
