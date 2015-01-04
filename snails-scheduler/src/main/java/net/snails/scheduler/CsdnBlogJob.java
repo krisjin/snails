@@ -12,7 +12,7 @@ public class CsdnBlogJob {
 
 	public void execute() {
 		Spider.create(new CSDNBlogPageProcessor()).addUrl("http://blog.csdn.net/").addPipeline(new CSDNBlogPipeline())
-				.thread(3).run();
+				.thread(50).run();
 	}
 
 }

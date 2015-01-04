@@ -11,7 +11,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
  */
 public class CSDNBlogPageProcessor implements PageProcessor {
 	
-	private Site site = Site.me().setDomain("blog.csdn.net");
+	private Site site = Site.me().setTimeOut(6000).setRetryTimes(3).setDomain("blog.csdn.net");
 
 	public void process(Page page) {
 		

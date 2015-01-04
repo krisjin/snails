@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import net.snails.scheduler.constant.Media;
-import net.snails.scheduler.dao.TechArticleMapper;
 import net.snails.scheduler.model.TechArticle;
 import net.snails.scheduler.service.TechArticleService;
 import net.snails.scheduler.utils.BloomFilter;
 import net.snails.scheduler.utils.DateUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -18,18 +21,20 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 import com.mysql.jdbc.StringUtils;
 
 public class CSDNBlogPipeline implements Pipeline {
-
+	
+	private Logger logger = LoggerFactory.getLogger(CSDNBlogPipeline.class);
+	
 	AtomicInteger count = new AtomicInteger(1);
 	int capicity = 10000000;
 	int initDataSize = 8000000;
 	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
-	
+
 	private TechArticleService techArticleService = new TechArticleService();
-	
+
 	public void process(ResultItems result, Task task) {
 		FileWriter writer = null;
 
-		bloomfilter.init("e:/tech-article.txt");
+		bloomfilter.init("/opt/app_resin/tech-article.txt");
 
 		String title = result.get("title");
 		String date = result.get("date");
@@ -59,15 +64,14 @@ public class CSDNBlogPipeline implements Pipeline {
 		article.setArticleContent(content);
 		techArticleService.addTechArticle(article);
 		try {
-			writer = new FileWriter("e:/tech-article.txt", true);
+			writer = new FileWriter("/opt/app_resin/tech-article.txt", true);
 			writer.write((url + "\n"));
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println("save..." + title.trim());
-
+		logger.info("save..." + title.trim());
 	}
-
 
 }

@@ -19,7 +19,7 @@
 			<ref bean="executeCsdnJob" />
 		</property>
 		<property name="cronExpression">
-			<value>00 36 18 * * ?</value>
+			<value>00 59 11 * * ?</value>
 		</property>
 	</bean>
 	
