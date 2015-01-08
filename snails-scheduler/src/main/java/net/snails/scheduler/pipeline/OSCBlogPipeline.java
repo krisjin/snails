@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import net.snails.scheduler.constant.Media;
+import net.snails.scheduler.constant.SystemConstant;
 import net.snails.scheduler.model.TechArticle;
 import net.snails.scheduler.service.TechArticleService;
 import net.snails.scheduler.utils.BloomFilter;
@@ -32,7 +33,7 @@ public class OSCBlogPipeline implements Pipeline {
 		String url = result.get("url");
 		Date d =DateUtil.convertStringDateTimeToDate(DateUtil.parseOscBlogPostDate(date),"yyyy-MM-dd HH:mm");
 		
-		bloomfilter.init("e:/tech-article.txt");
+		bloomfilter.init(SystemConstant.BLOOM_FILTER_FILE);
 		if(bloomfilter.contains(url)){
 			return;
 		}
@@ -47,7 +48,7 @@ public class OSCBlogPipeline implements Pipeline {
 		articleService.addTechArticle(art);
 		
 		try {
-			writer = new FileWriter("e:/tech-article.txt", true);
+			writer = new FileWriter(SystemConstant.BLOOM_FILTER_FILE, true);
 			writer.write((art.getArticleUrl() + "\n"));
 			writer.close();
 			System.out.println("save "+art.getArticleUrl());

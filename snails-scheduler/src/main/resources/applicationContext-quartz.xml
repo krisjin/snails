@@ -2,7 +2,6 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 	
-	
 		
 	<bean id="executeCsdnJob"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -13,6 +12,21 @@
 			<value>execute</value>
 		</property>
 	</bean>
+	
+	<bean id="executeOscJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="oscBlogJobService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+
+
+	
+
+
 
 	<bean id="csdnTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
@@ -23,10 +37,20 @@
 		</property>
 	</bean>
 	
+	<bean id="oscTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="executeOscJob" />
+		</property>
+		<property name="cronExpression">
+			<value>00 39 16 * * ?</value>
+		</property>
+	</bean>
+	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="csdnTrigger" />
+				<ref bean="oscTrigger" />
 			</list>
 		</property>
 	</bean>
