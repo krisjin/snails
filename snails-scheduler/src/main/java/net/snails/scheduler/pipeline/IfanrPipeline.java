@@ -4,11 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+import net.snails.scheduler.bloom.TechNewsBloomFilter;
 import net.snails.scheduler.constant.Media;
 import net.snails.scheduler.constant.SystemConstant;
 import net.snails.scheduler.model.TechNews;
 import net.snails.scheduler.service.TechNewsService;
-import net.snails.scheduler.utils.BloomFilter;
 import net.snails.scheduler.utils.DateUtil;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
@@ -43,7 +43,7 @@ public class IfanrPipeline implements Pipeline {
 		}
 		techNews.setTitle(title.trim());
 
-		BloomFilter bloomFilter = BloomFilter.newInstance();
+		TechNewsBloomFilter bloomFilter = TechNewsBloomFilter.newInstance();
 		if (bloomFilter.contains(url)) {
 			return;
 		}
@@ -61,6 +61,7 @@ public class IfanrPipeline implements Pipeline {
 			techNews.setPostDate(d);
 		}
 		techNewsService.addTechNews(techNews);
+		bloomFilter.put(url);
 		try {
 			writer = new FileWriter(SystemConstant.BLOOM_FILTER_TECH_NEWS_FILE, true);
 			writer.write(url + "\n");

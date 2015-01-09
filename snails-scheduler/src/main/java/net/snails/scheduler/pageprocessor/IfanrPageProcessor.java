@@ -8,7 +8,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 
 public class IfanrPageProcessor implements PageProcessor {
 	
-	private Site site = Site.me().setTimeOut(6000).setRetryTimes(3).setDomain("www.huxiu.com");
+	private Site site = Site.me().setTimeOut(6000).setRetryTimes(3).setDomain("www.ifanr.com");
 
 	public void process(Page page) {
 

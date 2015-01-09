@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-	
-		
-	<bean id="executeCsdnJob"
-		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+
+
+	<bean id="executeCsdnJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
 			<ref bean="csdnBlogJobService" />
 		</property>
@@ -12,9 +11,8 @@
 			<value>execute</value>
 		</property>
 	</bean>
-	
-	<bean id="executeOscJob"
-		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+
+	<bean id="executeOscJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
 			<ref bean="oscBlogJobService" />
 		</property>
@@ -23,8 +21,7 @@
 		</property>
 	</bean>
 
-	<bean id="executeTecentTechJob"
-		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="executeTecentTechJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
 			<ref bean="tecentTechJobService" />
 		</property>
@@ -32,8 +29,43 @@
 			<value>execute</value>
 		</property>
 	</bean>
-	
 
+	<bean id="executeSohuItJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="sohuItJobService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+
+
+	<bean id="executeKr36Job" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="kr36JobService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+
+	<bean id="executeHuxiuJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="huxiuJobService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+
+	<bean id="executeIfanrJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="ifanrJobService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
 
 
 	<bean id="csdnTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
@@ -44,7 +76,7 @@
 			<value>00 38 15 * * ?</value>
 		</property>
 	</bean>
-	
+
 	<bean id="oscTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
 			<ref bean="executeOscJob" />
@@ -53,24 +85,69 @@
 			<value>00 39 16 * * ?</value>
 		</property>
 	</bean>
-	
+
 	<bean id="tecentTechTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
 			<ref bean="executeTecentTechJob" />
 		</property>
 		<property name="cronExpression">
-			<value>00 09 23 * * ?</value>
+			<value>00 39 23 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="sohuItTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="executeSohuItJob" />
+		</property>
+		<property name="cronExpression">
+			<value>00 55 23 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="kr36Trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="executeKr36Job" />
+		</property>
+		<property name="cronExpression">
+			<value>00 01 00 * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="huxiuTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="executeHuxiuJob" />
+		</property>
+		<property name="cronExpression">
+			<value>00 07 00 * * ?</value>
 		</property>
 	</bean>
 	
+	<bean id="ifanrTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="executeIfanrJob" />
+		</property>
+		<property name="cronExpression">
+			<value>00 14 00 * * ?</value>
+		</property>
+	</bean>
+
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="csdnTrigger" />
-				
+
 				<ref bean="oscTrigger" />
-				
+
 				<ref bean="tecentTechTrigger" />
+
+				<ref bean="sohuItTrigger" />
+
+				<ref bean="kr36Trigger" />
+
+				<ref bean="huxiuTrigger" />
+
+				<ref bean="ifanrTrigger" />
+				
 			</list>
 		</property>
 	</bean>

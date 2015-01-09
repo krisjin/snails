@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import net.snails.scheduler.bloom.TechArticleBloomFilter;
 import net.snails.scheduler.constant.Media;
 import net.snails.scheduler.constant.SystemConstant;
 import net.snails.scheduler.model.TechArticle;
 import net.snails.scheduler.service.TechArticleService;
-import net.snails.scheduler.utils.BloomFilter;
 import net.snails.scheduler.utils.DateUtil;
 
 import org.slf4j.Logger;
@@ -46,12 +46,11 @@ public class CSDNBlogPipeline implements Pipeline {
 			return;
 		}
 
-		BloomFilter bloomfilter =BloomFilter.newInstance();
+		TechArticleBloomFilter bloomfilter =TechArticleBloomFilter.newInstance();
 		if (bloomfilter.contains(url)) {
 			return;
 		}
 
-		bloomfilter.put(url);
 		if (date == null) {
 			article.setArticlePostDate(new Date());
 		} else {
@@ -61,6 +60,7 @@ public class CSDNBlogPipeline implements Pipeline {
 		article.setArticleTitle(title.trim());
 		article.setArticleContent(content);
 		techArticleService.addTechArticle(article);
+		bloomfilter.put(url);
 		try {
 			writer = new FileWriter(SystemConstant.BLOOM_FILTER_TECH_ARTICLE_FILE, true);
 			writer.write((url + "\n"));

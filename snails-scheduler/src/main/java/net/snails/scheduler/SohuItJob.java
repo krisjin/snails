@@ -15,7 +15,7 @@ import us.codecraft.webmagic.Spider;
 public class SohuItJob {
 
 	public void execute() {
-		Spider.create(new SohuItPageProcessor()).addUrl("http://it.sohu.com").addPipeline(new SohuItPipeline()).thread(100).run();
+		Spider.create(new SohuItPageProcessor()).addUrl("http://it.sohu.com").addPipeline(new SohuItPipeline()).thread(50).run();
 	}
 
 }

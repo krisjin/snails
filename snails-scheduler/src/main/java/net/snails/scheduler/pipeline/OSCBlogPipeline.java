@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import net.snails.scheduler.bloom.TechArticleBloomFilter;
 import net.snails.scheduler.constant.Media;
 import net.snails.scheduler.constant.SystemConstant;
 import net.snails.scheduler.model.TechArticle;
 import net.snails.scheduler.service.TechArticleService;
-import net.snails.scheduler.utils.BloomFilter;
 import net.snails.scheduler.utils.DateUtil;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
@@ -32,12 +32,12 @@ public class OSCBlogPipeline implements Pipeline {
 		Date d =DateUtil.convertStringDateTimeToDate(DateUtil.parseOscBlogPostDate(date),"yyyy-MM-dd HH:mm");
 		
 		
-		BloomFilter bloomfilter = BloomFilter.newInstance();
+		TechArticleBloomFilter bloomfilter = TechArticleBloomFilter.newInstance();
 		
 		if(bloomfilter.contains(url)){
 			return;
 		}
-		bloomfilter.put(url);
+		
 		
 		TechArticle art=new TechArticle();
 		art.setArticleTitle(title.trim());
@@ -47,7 +47,7 @@ public class OSCBlogPipeline implements Pipeline {
 		art.setArticleSite(Media.OSC_BLOG);
 		
 		articleService.addTechArticle(art);
-		
+		bloomfilter.put(url);
 		try {
 			writer = new FileWriter(SystemConstant.BLOOM_FILTER_TECH_ARTICLE_FILE, true);
 			writer.write((art.getArticleUrl() + "\n"));
