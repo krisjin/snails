@@ -14,8 +14,9 @@ public class CSDNBlogPageProcessor implements PageProcessor {
 	private Site site = Site.me().setTimeOut(6000).setRetryTimes(3).setDomain("blog.csdn.net");
 
 	public void process(Page page) {
-		
+		List<String> links1 = page.getHtml().links().regex("http://blog.csdn.net/\\w+").all();
 		List<String> links = page.getHtml().links().regex("http://blog.csdn.net/\\w+/article/details/\\d+").all();
+		page.addTargetRequests(links1);
 		page.addTargetRequests(links);
 		
 		page.putField("title", page.getHtml().xpath("//span[@class='link_title']/a/text()").toString());
@@ -26,7 +27,7 @@ public class CSDNBlogPageProcessor implements PageProcessor {
 		
 		page.putField("url", page.getRequest().getUrl().toString());
 		
-		if(page.getResultItems().get("title")==null){
+		if(page.getResultItems().get("title")==null || page.getResultItems().get("content")==null){
 			page.setSkip(true);
 		}
 		

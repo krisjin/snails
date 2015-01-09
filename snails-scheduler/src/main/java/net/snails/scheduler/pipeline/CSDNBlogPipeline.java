@@ -26,16 +26,12 @@ public class CSDNBlogPipeline implements Pipeline {
 	private Logger logger = LoggerFactory.getLogger(CSDNBlogPipeline.class);
 	
 	AtomicInteger count = new AtomicInteger(1);
-	int capicity = 10000000;
-	int initDataSize = 8000000;
-	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
 
 	private TechArticleService techArticleService = new TechArticleService();
 
 	public void process(ResultItems result, Task task) {
 		FileWriter writer = null;
 
-		bloomfilter.init(SystemConstant.BLOOM_FILTER_FILE);
 
 		String title = result.get("title");
 		String date = result.get("date");
@@ -50,11 +46,12 @@ public class CSDNBlogPipeline implements Pipeline {
 			return;
 		}
 
+		BloomFilter bloomfilter =BloomFilter.newInstance();
 		if (bloomfilter.contains(url)) {
 			return;
 		}
 
-//		bloomfilter.put(url);
+		bloomfilter.put(url);
 		if (date == null) {
 			article.setArticlePostDate(new Date());
 		} else {

@@ -19,9 +19,7 @@ public class OSCBlogPipeline implements Pipeline {
 	
 	
 	AtomicInteger count = new AtomicInteger(1);
-	int capicity = 8000000;
-	int initDataSize = 5000000;
-	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
+	
 	private TechArticleService articleService = new TechArticleService();
 	
 	
@@ -33,10 +31,13 @@ public class OSCBlogPipeline implements Pipeline {
 		String url = result.get("url");
 		Date d =DateUtil.convertStringDateTimeToDate(DateUtil.parseOscBlogPostDate(date),"yyyy-MM-dd HH:mm");
 		
-		bloomfilter.init(SystemConstant.BLOOM_FILTER_FILE);
+		
+		BloomFilter bloomfilter = BloomFilter.newInstance();
+		
 		if(bloomfilter.contains(url)){
 			return;
 		}
+		bloomfilter.put(url);
 		
 		TechArticle art=new TechArticle();
 		art.setArticleTitle(title.trim());

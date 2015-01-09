@@ -5,6 +5,6 @@ package net.snails.scheduler.constant;
  *
  */
 public class SystemConstant {
-	public static final String BLOOM_FILTER_FILE="";
+	public static final String BLOOM_FILTER_FILE="/opt/app_resin/tech-article.txt";
 
 }

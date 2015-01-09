@@ -7,13 +7,28 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
+import net.snails.scheduler.constant.SystemConstant;
+
 public class BloomFilter {
 
 	private BitSet bitSet;
 	private int bitSetSize;
 	private int addedElements;
 	private int hashFunctionNumber;
-
+	
+	private static int capicity = 10000000;
+	private static int initDataSize = 8000000;
+	
+	private static BloomFilter bloomFilter =new BloomFilter(capicity, initDataSize, 8);
+	
+	public static synchronized BloomFilter newInstance(){
+		
+		if(bloomFilter==null){
+			bloomFilter = new BloomFilter(capicity, initDataSize, 8);
+		}
+		return bloomFilter;
+	} 
+	
 	/**
 	 * 构造一个布隆过滤器，过滤器的容量为c * n 个bit.
 	 * 
@@ -24,11 +39,12 @@ public class BloomFilter {
 	 * @param k
 	 *            哈希函数的个数，等同每条记录要占用的bit数.
 	 */
-	public BloomFilter(int c, int n, int k) {
+	private BloomFilter(int c, int n, int k) {
 		this.hashFunctionNumber = k;
 		this.bitSetSize = (int) Math.ceil(c * k);
 		this.addedElements = n;
 		this.bitSet = new BitSet(this.bitSetSize);
+		init(SystemConstant.BLOOM_FILTER_FILE);
 	}
 
 	/**

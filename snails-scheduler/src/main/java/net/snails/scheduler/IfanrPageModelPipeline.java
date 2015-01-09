@@ -23,13 +23,13 @@ public class IfanrPageModelPipeline implements PageModelPipeline {
 	AtomicInteger count = new AtomicInteger(1);
 	int capicity = 1000000;
 	int initDataSize = 800000;
-	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
+//	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
 	private TechNewsService techNewsService = new TechNewsService();
 
 	public void process(Object obj, Task task) {
 		FileWriter writer = null;
 
-		bloomfilter.init("e:/tech-news.txt");
+//		bloomfilter.init("e:/tech-news.txt");
 		if (obj instanceof IfanrCrawler) {
 			IfanrCrawler qqt = (IfanrCrawler) obj;
 			String title = qqt.getTitle();
@@ -43,10 +43,10 @@ public class IfanrPageModelPipeline implements PageModelPipeline {
 				return;
 			}
 
-			if (bloomfilter.contains(qqt.getUrl())) {
-				System.out.println(qqt.getUrl() + " have repeat...");
-				return;
-			}
+//			if (bloomfilter.contains(qqt.getUrl())) {
+//				System.out.println(qqt.getUrl() + " have repeat...");
+//				return;
+//			}
 
 			if (StringUtils.isNullOrEmpty(qqt.getAuthor())) {
 				techNews.setAuthor("");

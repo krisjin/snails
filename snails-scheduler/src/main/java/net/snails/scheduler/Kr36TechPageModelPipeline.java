@@ -24,13 +24,13 @@ public class Kr36TechPageModelPipeline implements PageModelPipeline {
 	AtomicInteger count=new AtomicInteger(1);
 	int capicity = 1000000;
 	int initDataSize = 800000;
-	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
+//	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
 	private NewsService newsService = new NewsService();
 
 	public void process(Object obj, Task task) {
 		FileWriter writer = null;
 
-		bloomfilter.init("e:/tech-news.txt");
+//		bloomfilter.init("e:/tech-news.txt");
 		if (obj instanceof Kr36Crawler) {
 			Kr36Crawler qqt = (Kr36Crawler) obj;
 			String title = qqt.getTitle();
@@ -46,10 +46,10 @@ public class Kr36TechPageModelPipeline implements PageModelPipeline {
 				return;
 			}
 
-			if (bloomfilter.contains(qqt.getUrl())) {
-				System.out.println(qqt.getUrl() +" have repeat...  "+count.incrementAndGet());
-				return;
-			}
+//			if (bloomfilter.contains(qqt.getUrl())) {
+//				System.out.println(qqt.getUrl() +" have repeat...  "+count.incrementAndGet());
+//				return;
+//			}
 
 			if (StringUtils.isNullOrEmpty(qqt.getImgUrl())) {
 				news.setThumbnailsUrl("");

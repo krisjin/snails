@@ -11,8 +11,8 @@ import us.codecraft.webmagic.Spider;
 public class CsdnBlogJob {
 
 	public void execute() {
-		Spider.create(new CSDNBlogPageProcessor()).addUrl("http://blog.csdn.net/pelick/article/details/7015369").addPipeline(new CSDNBlogPipeline())
-				.thread(30).run();
+		Spider.create(new CSDNBlogPageProcessor()).addUrl("http://blog.csdn.net/oopsoom").addPipeline(new CSDNBlogPipeline())
+				.thread(100).run();
 	}
 
 }

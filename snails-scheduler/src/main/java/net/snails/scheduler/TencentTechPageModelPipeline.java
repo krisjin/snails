@@ -21,13 +21,13 @@ import com.mysql.jdbc.StringUtils;
 public class TencentTechPageModelPipeline implements PageModelPipeline {
 	int capicity = 1000000;
 	int initDataSize = 800000;
-	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
+//	private BloomFilter bloomfilter = new BloomFilter(capicity, initDataSize, 8);
 	private TechNewsService newsService = new TechNewsService();
 
 	public void process(Object obj, Task task) {
 		FileWriter writer = null;
 
-		bloomfilter.init("e:/tech-news.txt");
+//		bloomfilter.init("e:/tech-news.txt");
 		if (obj instanceof TencentTechCrawler) {
 			TencentTechCrawler qqt = (TencentTechCrawler) obj;
 			String title = qqt.getTitle();
@@ -41,10 +41,10 @@ public class TencentTechPageModelPipeline implements PageModelPipeline {
 				return;
 			}
 
-			if (bloomfilter.contains(qqt.getUrl())) {
-				System.out.println(qqt.getUrl() + " have repeat...");
-				return;
-			}
+//			if (bloomfilter.contains(qqt.getUrl())) {
+//				System.out.println(qqt.getUrl() + " have repeat...");
+//				return;
+//			}
 
 			if (StringUtils.isNullOrEmpty(qqt.getImgUrl())) {
 				techNews.setThumbnailsUrl("");
