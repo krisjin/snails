@@ -49,7 +49,7 @@ public class OSCBlogPipeline implements Pipeline {
 		articleService.addTechArticle(art);
 		
 		try {
-			writer = new FileWriter(SystemConstant.BLOOM_FILTER_FILE, true);
+			writer = new FileWriter(SystemConstant.BLOOM_FILTER_TECH_ARTICLE_FILE, true);
 			writer.write((art.getArticleUrl() + "\n"));
 			writer.close();
 			System.out.println("save "+art.getArticleUrl());

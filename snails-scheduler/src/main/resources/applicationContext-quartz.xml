@@ -23,7 +23,15 @@
 		</property>
 	</bean>
 
-
+	<bean id="executeTecentTechJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="tecentTechJobService" />
+		</property>
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
 	
 
 
@@ -46,11 +54,23 @@
 		</property>
 	</bean>
 	
+	<bean id="tecentTechTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="executeTecentTechJob" />
+		</property>
+		<property name="cronExpression">
+			<value>00 09 23 * * ?</value>
+		</property>
+	</bean>
+	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="csdnTrigger" />
+				
 				<ref bean="oscTrigger" />
+				
+				<ref bean="tecentTechTrigger" />
 			</list>
 		</property>
 	</bean>

@@ -62,7 +62,7 @@ public class CSDNBlogPipeline implements Pipeline {
 		article.setArticleContent(content);
 		techArticleService.addTechArticle(article);
 		try {
-			writer = new FileWriter(SystemConstant.BLOOM_FILTER_FILE, true);
+			writer = new FileWriter(SystemConstant.BLOOM_FILTER_TECH_ARTICLE_FILE, true);
 			writer.write((url + "\n"));
 			writer.close();
 		} catch (IOException e) {

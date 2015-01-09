@@ -44,7 +44,7 @@ public class BloomFilter {
 		this.bitSetSize = (int) Math.ceil(c * k);
 		this.addedElements = n;
 		this.bitSet = new BitSet(this.bitSetSize);
-		init(SystemConstant.BLOOM_FILTER_FILE);
+		init(SystemConstant.BLOOM_FILTER_TECH_ARTICLE_FILE);
 	}
 
 	/**

@@ -13,7 +13,7 @@ public class TechNews implements Serializable {
 
 	private String author;
 
-	private String media;
+	private int media;
 
 	private String mediaUrl;
 
@@ -47,13 +47,6 @@ public class TechNews implements Serializable {
 		this.author = author;
 	}
 
-	public String getMedia() {
-		return media;
-	}
-
-	public void setMedia(String media) {
-		this.media = media;
-	}
 
 	public String getMediaUrl() {
 		return mediaUrl;
@@ -85,6 +78,14 @@ public class TechNews implements Serializable {
 
 	public void setThumbnailsUrl(String thumbnailsUrl) {
 		this.thumbnailsUrl = thumbnailsUrl;
+	}
+
+	public int getMedia() {
+		return media;
+	}
+
+	public void setMedia(int media) {
+		this.media = media;
 	}
 
 }
