@@ -73,7 +73,7 @@
 			<ref bean="executeCsdnJob" />
 		</property>
 		<property name="cronExpression">
-			<value>00 38 15 * * ?</value>
+			<value>00 23 20 * * ?</value>
 		</property>
 	</bean>
 

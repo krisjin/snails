@@ -36,7 +36,7 @@ public class CSDNBlogPipeline implements Pipeline {
 		String title = result.get("title");
 		String date = result.get("date");
 		String content = result.get("content");
-		String url = result.get("url");
+		String url = result.get("url").toString().toLowerCase();
 
 		TechArticle article = new TechArticle();
 		article.setArticleSite(Media.CSDN_BLOG);
