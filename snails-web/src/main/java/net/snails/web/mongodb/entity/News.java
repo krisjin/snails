@@ -102,6 +102,7 @@ public class News {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		return sb.append("News:").append("{id:").append(this.id).append(",newsTitle:").append(this.newsTitle).append("}").toString();
+		return sb.append("News:").append("{id:").append(this.id).append(",newsTitle:").append(this.newsTitle).append("}")
+				.toString();
 	}
 }

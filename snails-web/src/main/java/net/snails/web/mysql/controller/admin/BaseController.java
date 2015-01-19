@@ -2,9 +2,9 @@ package net.snails.web.mysql.controller.admin;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.snails.entity.mysql.User;
 import net.snails.web.constant.SystemConstant;
 import net.snails.web.exception.ControllerValidateException;
-import net.snails.web.mysql.entity.User;
 import net.snails.web.mysql.service.UserService;
 import net.snails.web.util.JsonUtil;
 
@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 
 /**
  * @author krisjin

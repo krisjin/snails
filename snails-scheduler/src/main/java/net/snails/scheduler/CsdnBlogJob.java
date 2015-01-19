@@ -1,7 +1,7 @@
 package net.snails.scheduler;
 
-import net.snails.scheduler.model.JobInfo;
-import net.snails.scheduler.model.JobKey;
+import net.snails.entity.JobInfo;
+import net.snails.entity.JobKey;
 import net.snails.scheduler.pageprocessor.CSDNBlogPageProcessor;
 import net.snails.scheduler.pipeline.CSDNBlogPipeline;
 import net.snails.scheduler.utils.ConfigUtil;

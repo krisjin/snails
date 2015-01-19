@@ -10,8 +10,8 @@ public class ValidateInfoConstant {
 
 	public static final String PASSWORD = "密码不正确!";
 
-    public static final String USER_NOT_FOUND="";
+	public static final String USER_NOT_FOUND = "";
 
-    public static final String EMAIL_NOT_FOUND="";
+	public static final String EMAIL_NOT_FOUND = "";
 
 }

@@ -7,9 +7,9 @@ import net.snails.web.mysql.entity.TechArticle;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-
 /**
  * 技术文章数据访问接口
+ * 
  * @author krisjin
  * @date 2015-1-15
  */
@@ -27,6 +27,6 @@ public interface TechArticleDao {
 	public List<TechArticle> getTechArticleWithPage(@Param("offset") long offset, @Param("rows") long rows);
 
 	public long getCounts();
-	
+
 	public List<TechArticle> getChartTechArticle(@Param("startDate") String startDate, @Param("endDate") String endDate);
 }

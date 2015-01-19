@@ -2,13 +2,12 @@ package net.snails.web.mysql.service;
 
 import java.util.List;
 
+import net.snails.entity.mysql.Keyword;
 import net.snails.web.mysql.dao.KeywordDao;
-import net.snails.web.mysql.entity.Keyword;
 import net.snails.web.util.Pagination;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class KeywordService {
@@ -37,8 +36,7 @@ public class KeywordService {
 		pagination.setCurrentPageSize(pageNO);
 		pagination.setPerPageRecords(perPageRecords);
 
-		List<Keyword> keywords = keywordDao.getKeywordWithPage(
-				pagination.getOffsetRecords(), perPageRecords);
+		List<Keyword> keywords = keywordDao.getKeywordWithPage(pagination.getOffsetRecords(), perPageRecords);
 		pagination.setTotalRecords(this.keywordDao.getTotalKeywordCounts());
 
 		pagination.setData(keywords);

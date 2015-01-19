@@ -1,0 +1,107 @@
+<#include "/page/head.htm">
+<div id="container-layout">
+  <div id="mainContent">
+    <div id="sidebar">
+  		<#include "/page/sidebar.htm">
+    </div>
+    
+    <div id="content">
+		<div class="panel panel-primary">
+		            <div class="panel-heading">
+		              <h3 class="panel-title">用户列表</h3>
+		            </div>
+		            
+		            <div class="panel-body" >
+		            <table class="table table-hover">
+				      <thead>
+				        <tr>
+				          <th>#</th>
+				          <th>用户名</th>
+				          <th>Email</th>
+				          <th>状态</th>
+				          <th>创建日期</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				<#assign dataes=page.getData()>
+				<#list dataes as user>
+				        <tr>
+				          <td><input type="checkbox" value="${user.userId}" name="userId"></td>
+				          <td>${user.name}</td>
+				          <td>${user.email}</td>
+				          <td>
+				          <#if user.status==1>
+				          	正常
+				          <#else>
+				          	无效
+				          </#if>
+				          </td>
+				          <td>${user.createTime?string('yyyy-MM-dd HH:ss')}</td>
+				        </tr>
+				</#list>
+				      </tbody>
+				    </table>
+		            </div>
+		            
+		            <div class="panel-footer">
+		             <div class="container-fluid">
+		             <div class="row show-grid" style="height: 70px;">
+					      <div class="col-xs-4" style="margin-top: 20px;">
+				             <span> <a class="btn btn-success" href="${basePath}/admin/user/addUser.htm" >新增</a></span>
+				             <span> <a class="btn btn-warning" href="#" onclick="updateUser();">修改</a></span>
+				             <span> <a class="btn btn-danger" href="#" onclick="deleteUser();" >删除</a></span>
+					      </div>
+					      <div class="col-xs-8" style="margin-top: 0px;">
+		             		${page.getPaginationStr()}
+					      </div>
+   					 </div>
+   					 </div>
+		            </div>
+		 </div>
+     </div>
+   </div>
+</div>
+<script type="text/javascript">
+	function deleteUser(){
+		var id_array=new Array();
+		$('input[name="userId"]:checked').each(function(){
+			id_array.push($(this).val());
+		});
+		var ids=id_array.join(',');
+		
+		if(ids.length==0){
+			alert("请选中一条记录!");
+			return false;
+		}
+		
+		$.ajax( {    
+		    url:'${basePath}/admin/user/deleteUser.htm',  
+		    data:{ userId : ids},    
+		    dataType:'json',    
+		    success : function(json) {
+				
+			}    
+		}); 
+		
+		window.location.reload();
+		
+	}
+	
+	
+	function updateUser(){
+		var ids=new Array();
+		$('input[name="userId"]:checked').each(function(){
+			ids.push($(this).val());
+		});
+
+		if( ids.length==0 || ids.length>1){
+			alert("请选中一条记录!");
+			return false;
+		}
+		
+		window.location.href="${basePath}/admin/user/updateUser.htm?userId="+ids[0];
+		
+	}
+</script>
+
+<#include "/page/foot.htm">

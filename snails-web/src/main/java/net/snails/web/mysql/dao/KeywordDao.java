@@ -2,11 +2,10 @@ package net.snails.web.mysql.dao;
 
 import java.util.List;
 
-import net.snails.web.mysql.entity.Keyword;
+import net.snails.entity.mysql.Keyword;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 
 @Repository
 public interface KeywordDao {
@@ -19,7 +18,7 @@ public interface KeywordDao {
 
 	public Keyword getKeywordById(@Param("id") int id);
 
-	public List<Keyword> getKeywordWithPage(@Param("offset") long offset,@Param("rows") long rows);
+	public List<Keyword> getKeywordWithPage(@Param("offset") long offset, @Param("rows") long rows);
 
 	public long getTotalKeywordCounts();
 

@@ -3,7 +3,7 @@ package net.snails.scheduler.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.snails.entity.mysql.TechNews;
+import net.snails.entity.mysql.TechNews;
 
 /**
  * @author krisjin

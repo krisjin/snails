@@ -109,14 +109,15 @@ public class Pagination<T> {
 		// 页码
 		if (this.getTotalPageNum() > 1) {
 			int startNum = this.getCurrentPageSize() - 3 <= 1 ? 1 : this.getCurrentPageSize() - 3;
-			int endNum = this.getCurrentPageSize() + 3 >= this.getTotalPageNum() ? this.getTotalPageNum() : this.getCurrentPageSize() + 3;
+			int endNum = this.getCurrentPageSize() + 3 >= this.getTotalPageNum() ? this.getTotalPageNum() : this
+					.getCurrentPageSize() + 3;
 			if (startNum > 1) {
 				sb.append("<li><a href='javascript:void(0);'>...</a></li>");
 			}
 			for (int i = startNum; i <= endNum; i++) {
 				if (i == currentPageSize) {
-					sb.append("<li class='active'><a   href='" + this.getUrl(i) + "' class='number current' title='" + i + "'>" + i
-							+ "</a></li>");
+					sb.append("<li class='active'><a   href='" + this.getUrl(i) + "' class='number current' title='" + i + "'>"
+							+ i + "</a></li>");
 				} else {
 					sb.append("<li><a href='" + this.getUrl(i) + "' class='number' title='" + i + "'>" + i + "</a></li>");
 				}

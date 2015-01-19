@@ -27,7 +27,7 @@ public class TechArticle {
 	private int articleReadNum;
 
 	private String articleSummary;
-	
+
 	public long getArticleId() {
 		return articleId;
 	}
@@ -108,5 +108,4 @@ public class TechArticle {
 		this.articleSummary = articleSummary;
 	}
 
-	
 }

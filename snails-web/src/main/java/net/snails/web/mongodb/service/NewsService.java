@@ -9,7 +9,6 @@ import net.snails.web.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 /**
  * @author krisjin
  * @date 2014-11-5
@@ -39,19 +38,18 @@ public class NewsService {
 	public void deleteNewsById(String id) {
 		newsDaoMongoDB.deleteById(id);
 	}
-	
-	
-	public List<News> findNewsWithPage(Pagination<News> page ,String newsPosttime){
+
+	public List<News> findNewsWithPage(Pagination<News> page, String newsPosttime) {
 		return newsDaoMongoDB.getNewsWithPage(page);
-		//return newsDao.getNewsWithPageByPosttime(page, newsPosttime);
+		// return newsDao.getNewsWithPageByPosttime(page, newsPosttime);
 	}
-	
-	public long getCountsNews(){
-		
+
+	public long getCountsNews() {
+
 		return newsDaoMongoDB.count();
 	}
-	
-	public List<News> findInflationNewsData(String startDate,String endDate){
+
+	public List<News> findInflationNewsData(String startDate, String endDate) {
 		return newsDaoMongoDB.getInflationNewsData(startDate, endDate);
-	} 
+	}
 }

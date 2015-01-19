@@ -9,7 +9,6 @@ import net.snails.web.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 /**
  * 技术文章数据服务
  * 
@@ -57,9 +56,8 @@ public class TechArticleService {
 		return page;
 	}
 
-	
-	public List<TechArticle> getChartTechArticle(String startDate,String endDate){
+	public List<TechArticle> getChartTechArticle(String startDate, String endDate) {
 		return techArticleDao.getChartTechArticle(startDate, endDate);
-		
+
 	}
 }

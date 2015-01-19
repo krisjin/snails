@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import net.snails.scheduler.model.JobInfo;
-import net.snails.scheduler.model.JobKey;
+import net.snails.entity.JobInfo;
+import net.snails.entity.JobKey;
 
 /**
  * @author krisjin

@@ -1,0 +1,69 @@
+<#include "/page/head.htm">
+<div id="container-layout">
+  <div id="mainContent">
+    <div id="sidebar">
+  		<#include "/page/sidebar.htm">
+    </div>
+    
+    <div id="content">
+		<div class="panel panel-primary">
+		            <div class="panel-heading">
+		              <h3 class="panel-title">通胀舆情指数查询</h3>
+		            </div>
+		            
+		            <div class="panel-body" >
+		            <form action="${basePath}/admin/news/inflation.htm" method="post">
+					            开始时间:<input size="16" type="text"  readonly class="form_datetime" name="startDate">&nbsp;&nbsp;&nbsp;
+					            结束时间:<input size="16" type="text"  readonly class="form_datetime" name="endDate">
+					      &nbsp;&nbsp;&nbsp;
+					      <input type="submit" value="查 询" class="btn btn-primary btn-sm">
+		     	   </form>
+		            <table class="table table-hover">
+				      <thead>
+				        <tr>
+				          <th>#</th>
+				          <th>新闻标题</th>
+				          <th>发布日期</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+						
+						<#list newsList as news>
+						        <tr>
+						          <td><input type="checkbox" value="" name="userId"></td>
+						          <td>
+						           <#if news.newsTitle?length gt 40>
+										${news.newsTitle[0..40]}
+										<#else>
+										${news.newsTitle}
+								   </#if>
+						          </td>
+						          <td>${news.newsPosttime?string('yyyy-MM-dd HH:ss')}</td>
+						        </tr>
+						</#list>
+				      </tbody>
+				    </table>
+		            </div>
+		            
+
+		 </div>
+     </div>
+   </div>
+</div>
+
+<#include "/page/foot.htm">
+<script type="text/javascript">
+	
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        format:"yyyy-mm-dd hh:mm",
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+
+</script>

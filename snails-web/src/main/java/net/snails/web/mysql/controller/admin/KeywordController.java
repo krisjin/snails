@@ -1,6 +1,6 @@
 package net.snails.web.mysql.controller.admin;
 
-import net.snails.web.mysql.entity.Keyword;
+import net.snails.entity.mysql.Keyword;
 import net.snails.web.mysql.service.KeywordService;
 import net.snails.web.util.Pagination;
 
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 /**
  * @author krisjin
@@ -37,13 +36,12 @@ public class KeywordController {
 		return "page/keyword/keywordDetail";
 	}
 
-
 	@RequestMapping(value = "/keyword/add.htm", method = RequestMethod.GET)
 	public String addKeyword() {
 
 		return "page/keyword/addKeyword";
 	}
-	
+
 	@RequestMapping(value = "/keyword/save.htm", method = RequestMethod.POST)
 	public String saveKeyword(@RequestParam(value = "name", defaultValue = "") String name,
 			@RequestParam(value = "content") String content, ModelMap model) {
@@ -60,10 +58,11 @@ public class KeywordController {
 		model.put("keyword", keyword);
 		return "page/keyword/updateKeyword";
 	}
-	
+
 	@RequestMapping(value = "/keyword/updateSave.htm", method = RequestMethod.POST)
-	public String updateSaveKeyword(@RequestParam(value="id") int id,@RequestParam(value = "name", defaultValue = "") String name,
-			@RequestParam(value = "content") String content, ModelMap model) {
+	public String updateSaveKeyword(@RequestParam(value = "id") int id,
+			@RequestParam(value = "name", defaultValue = "") String name, @RequestParam(value = "content") String content,
+			ModelMap model) {
 		Keyword keyword = new Keyword();
 		keyword.setId(id);
 		keyword.setName(name);
@@ -71,7 +70,5 @@ public class KeywordController {
 		keywordService.updateKeyword(keyword);
 		return "redirect:/admin/ms/keyword.htm";
 	}
-	
-	
-	
+
 }

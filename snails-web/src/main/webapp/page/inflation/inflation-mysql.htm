@@ -1,0 +1,135 @@
+<#include "/page/head.htm">
+<div id="container-layout">
+  <div id="mainContent">
+    <div id="sidebar">
+  		<#include "/page/sidebar.htm">
+    </div>
+    <div id="content">
+		<div class="panel panel-primary">
+		            <div class="panel-heading">
+		              <h3 class="panel-title">通胀舆情指数查询</h3>
+		            </div>
+		            <div class="panel-body" >
+		            <form action="${basePath}/admin/ms/inflation/chart.htm" method="post">
+					            开始时间:<input size="16" type="text"  readonly class="form_datetime" name="startDate">&nbsp;&nbsp;&nbsp;
+					            结束时间:<input size="16" type="text"  readonly class="form_datetime" name="endDate">
+					      &nbsp;&nbsp;&nbsp;
+					      <input type="submit" value="查 询" class="btn btn-primary btn-sm">
+		     	   </form>
+		            <table class="table table-hover">
+				      <thead>
+				        <tr>
+				          <th>#</th>
+				          <th>新闻标题</th>
+				          <th>发布日期</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+						
+						<#list newsList as news>
+						        <tr>
+						          <td><input type="checkbox" value="" name="userId"></td>
+						          <td>
+						           <#if news.newsTitle?length gt 40>
+										${news.newsTitle[0..40]}
+										<#else>
+										${news.newsTitle}
+								   </#if>
+						          </td>
+						          <td>${news.newsPosttime?string('yyyy-MM-dd HH:ss')}</td>
+						        </tr>
+						</#list>
+				      </tbody>
+				    </table>
+		            </div>
+		 </div>
+		 
+	  <div id="main" style="height:500px;border:1px solid #ccc;padding:10px;width: auto;"></div>
+	  
+	  <script type="text/javascript">
+    // Step:3 conifg ECharts's path, link to echarts.js from current page.
+    // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
+    require.config({
+        paths: {
+            echarts: '${basePath}/page/echarts/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+        function (ec) {
+            //--- 折柱 ---
+            var myChart = ec.init(document.getElementById('main'));
+            var categoryData=${cate};
+            var valueData=${vals};
+            myChart.setOption({
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['每天舆情指数']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: true},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : categoryData
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitArea : {show : true}
+                    }
+                ],
+                series : [
+                    {
+                        name:'通货膨胀舆情指数',
+                        type:'bar',
+                        data:valueData
+                    }
+                ]
+            });
+            
+        
+        }
+    );
+    </script>
+		 
+     </div>
+   </div>
+</div>
+
+<#include "/page/foot.htm">
+<script type="text/javascript">
+	
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        format:"yyyy-mm-dd",
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+
+</script>

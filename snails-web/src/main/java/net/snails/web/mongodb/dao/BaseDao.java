@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 
-
 /**
  * @author krisjin
  * @date 2014-11-4
@@ -17,19 +16,18 @@ public abstract class BaseDao<T> implements IDao<T> {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	
+
 	protected Class<T> entityClass;
 
-	public BaseDao(){
+	public BaseDao() {
 		this.entityClass = ReflectionUtils.getSuperClassGenricType(getClass());
 	}
-	
+
 	public long count() {
 
 		return this.mongoTemplate.count(new Query(), entityClass);
 	}
-	
-	
+
 	public void save(T entity) {
 		this.mongoTemplate.insert(entity);
 	}
@@ -52,7 +50,7 @@ public abstract class BaseDao<T> implements IDao<T> {
 
 	public List<T> getAll() {
 
-		return (List<T>) mongoTemplate.find(new Query(),entityClass);
+		return (List<T>) mongoTemplate.find(new Query(), entityClass);
 	}
 
 	public MongoTemplate getMongoTemplate() {

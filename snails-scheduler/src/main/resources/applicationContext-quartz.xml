@@ -91,7 +91,7 @@
 			<ref bean="executeTecentTechJob" />
 		</property>
 		<property name="cronExpression">
-			<value>00 39 23 * * ?</value>
+			<value>00 29 22 * * ?</value>
 		</property>
 	</bean>
 

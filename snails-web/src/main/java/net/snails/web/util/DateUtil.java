@@ -492,7 +492,7 @@ public abstract class DateUtil {
 	public static String getYYYMMDDHHMMSSDateFormat() {
 		return new SimpleDateFormat(YYYMMDDHHMMSSFORMAT).format(new Date());
 	}
-	
+
 	public static Date valueOfDate(String date, String pattern) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		return sdf.parse(date);

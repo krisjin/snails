@@ -4,8 +4,8 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.snails.entity.mysql.User;
 import net.snails.web.exception.ControllerValidateException;
-import net.snails.web.mysql.entity.User;
 import net.snails.web.util.JsonUtil;
 import net.snails.web.util.MD5Util;
 import net.snails.web.util.Pagination;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 /**
  * @author krisjin
@@ -36,7 +35,8 @@ public class UserManageController extends BaseController {
 	}
 
 	@RequestMapping(value = "/updateUser.htm", method = RequestMethod.GET)
-	public String update(@RequestParam(value = "userId", defaultValue = "0") long userId, ModelMap modelMap, HttpServletRequest request) {
+	public String update(@RequestParam(value = "userId", defaultValue = "0") long userId, ModelMap modelMap,
+			HttpServletRequest request) {
 		User user = userService.getUserById(userId);
 
 		modelMap.put("user", user);
@@ -45,9 +45,9 @@ public class UserManageController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/update.json", method = RequestMethod.POST)
-	public JsonUtil<String> updateUser(@RequestParam(value = "userName") String userName, @RequestParam(value = "email") String email,
-			@RequestParam(value = "password") String password, @RequestParam(value = "userId") long userId,
-			@RequestParam(value = "status") int status) {
+	public JsonUtil<String> updateUser(@RequestParam(value = "userName") String userName,
+			@RequestParam(value = "email") String email, @RequestParam(value = "password") String password,
+			@RequestParam(value = "userId") long userId, @RequestParam(value = "status") int status) {
 
 		JsonUtil<String> json = new JsonUtil<String>();
 		User user = userService.getUserById(userId);
@@ -79,8 +79,9 @@ public class UserManageController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/saveUser.json", method = RequestMethod.POST)
-	public JsonUtil<String> saveUser(@RequestParam(value = "userName") String userName, @RequestParam(value = "email") String email,
-			@RequestParam(value = "password") String password, @RequestParam(value = "status") int status) {
+	public JsonUtil<String> saveUser(@RequestParam(value = "userName") String userName,
+			@RequestParam(value = "email") String email, @RequestParam(value = "password") String password,
+			@RequestParam(value = "status") int status) {
 
 		JsonUtil<String> json = new JsonUtil<String>();
 		email = email.toLowerCase();
@@ -109,6 +110,7 @@ public class UserManageController extends BaseController {
 		}
 		return json;
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
 	public JsonUtil<String> deleteUser(@RequestParam(value = "userId") String userId) {

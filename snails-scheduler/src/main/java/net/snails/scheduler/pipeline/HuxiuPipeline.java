@@ -4,14 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
+import net.snails.entity.mysql.TechNews;
 import net.snails.scheduler.bloom.TechNewsBloomFilter;
 import net.snails.scheduler.constant.Media;
 import net.snails.scheduler.constant.SystemConstant;
 import net.snails.scheduler.service.TechNewsService;
 import net.snails.scheduler.utils.DateUtil;
-
-import org.snails.entity.mysql.TechNews;
-
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;

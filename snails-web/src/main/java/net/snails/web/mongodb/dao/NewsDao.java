@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-
 /**
  * @author krisjin
  * @date 2014-11-6
@@ -71,11 +70,11 @@ public class NewsDao extends BaseDao<News> {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		query.addCriteria(Criteria.where("newsPosttime").gte(startDate1).lte(endDate1));
 		query.fields().include("newsTitle");
 		query.fields().include("newsPosttime");
-		
+
 		return this.getMongoTemplate().find(query, News.class);
 
 	}

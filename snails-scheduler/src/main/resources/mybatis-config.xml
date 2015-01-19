@@ -5,9 +5,12 @@
 <configuration>
 
 	<properties resource="application.properties" />
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
 
 	<typeAliases>
-		<package name="net.snails.scheduler.model" />
+		<package name="net.snails.entity.mysql" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

@@ -2,11 +2,10 @@ package net.snails.web.mysql.dao;
 
 import java.util.List;
 
-import net.snails.web.mysql.entity.User;
+import net.snails.entity.mysql.User;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 
 /**
  * @author krisjin

@@ -62,8 +62,8 @@ public class NewsController {
 
 		for (News n : news) {
 			List<String> summaryList = TextRankSummary.getTopSentenceList(HtmlUtil.removeAllHtmlTag(n.getNewsContent()), 5);
-			String str =Joiner.on("，").join(summaryList);
-			n.setSummary(str.replaceAll("\\s*", "").replaceAll("　　", "")+"。");
+			String str = Joiner.on("，").join(summaryList);
+			n.setSummary(str.replaceAll("\\s*", "").replaceAll("　　", "") + "。");
 		}
 		page.setData(news);
 		Map args = new HashMap();
@@ -79,16 +79,17 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/inflation.htm", method = RequestMethod.POST)
-	public String getInflationNewsData(@RequestParam(value = "startDate", defaultValue ="") String startDate,
-			@RequestParam(value = "endDate", defaultValue = "") String endDate,ModelMap model) {
-		
+	public String getInflationNewsData(@RequestParam(value = "startDate", defaultValue = "") String startDate,
+			@RequestParam(value = "endDate", defaultValue = "") String endDate, ModelMap model) {
+
 		List<News> newsList = newsServiceMongoDB.findInflationNewsData(startDate, endDate);
 		model.put("newsList", newsList);
 		return "page/inflation/inflation";
 	}
+
 	@RequestMapping(value = "/queryInflation.htm", method = RequestMethod.GET)
 	public String queryInflationNewsData(ModelMap model) {
-		List<News> newsList =new ArrayList<News>();
+		List<News> newsList = new ArrayList<News>();
 		model.put("newsList", newsList);
 		return "page/inflation/inflation";
 	}

@@ -1,0 +1,37 @@
+body {
+	margin: 0;
+}
+
+#container-layout {
+	margin: 0 auto;
+	height: 100%;
+}
+
+#header {
+	height: 70px;
+	background: #4e5d6c;
+	border-bottom: 1px solid #8B4513;
+}
+
+#mainContent {
+	height: 100%;
+}
+
+#sidebar {
+	vertical-align: text-bottom;
+	float: left;
+	width: 200px;
+	background: #F8F8FF;
+	border-right: 1px solid #8B4513;
+	height: 91%;
+	position: absolute;
+}
+
+#content {
+	margin-left: 0px !important;
+	background: white;
+	margin-left: 205px !important;
+	margin-left: 202px;
+	margin-right: 5px;
+	padding-top: 5px;
+}

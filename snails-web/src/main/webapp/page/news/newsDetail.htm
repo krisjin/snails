@@ -1,0 +1,30 @@
+<#include "/page/head.htm">
+
+<div id="container-layout">
+  <div id="mainContent">
+    <div id="sidebar">
+  		<#include "/page/sidebar.htm">
+    </div>
+    
+    <div id="content">
+		<div class="panel panel-primary">
+		            <div class="panel-heading">
+		             <h3 class="panel-title" align="center">
+		              <span class="glyphicon glyphicon-arrow-left" title="返回" onclick="javascript:history.go(-1);"></span>&nbsp;&nbsp;&nbsp; ${news.newsTitle}
+		              </h3>
+		            </div>
+		            <div class="panel-body">
+		            <div style="text-align: center;margin-bottom: 8px;">
+		            	发布时间:${news.newsPosttime?string("yyyy-MM-dd HH:ss")} | <a href="${news.newsUrl}" target="_blank">原链接</a>
+		            </div>
+		            <div>
+		            	${news.newsContent}
+		            </div>
+		            	
+		            </div>
+		 </div>
+     </div>
+   </div>
+</div>
+
+<#include "/page/foot.htm">

@@ -2,15 +2,13 @@ package net.snails.web.util;
 
 import java.util.HashMap;
 
-
 import net.snails.web.exception.ControllerValidateException;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class JsonUtil<T> {
-	
+
 	private boolean result;
 
 	private String msg;

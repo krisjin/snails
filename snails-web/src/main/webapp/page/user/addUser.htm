@@ -1,0 +1,64 @@
+<#include "/page/head.htm">
+
+<div id="container-layout">
+  <div id="mainContent">
+    <div id="sidebar">
+  		<#include "/page/sidebar.htm">
+    </div>
+    
+    <div id="content">
+		<div class="panel panel-primary">
+		            <div class="panel-heading">
+		              <h3 class="panel-title">添加用户信息</h3>
+		            </div>
+		            <div class="panel-body">
+		            	<div style="width: 500px;margin-left: 20px;">
+			             <form role="form" id="addUserForm" method="post" class="form-horizontal" autocomplete="off" action="${basePath}/admin/user/saveUser.json">
+						 
+						  <div class="form-group">
+						    <label for="exampleInputEmail1">用户名</label>
+						    <input type="text" class="form-control" name="userName" id="userName" required>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="exampleInputPassword1">Email</label>
+							<input type="text" class="form-control" name="email" id="email" value="" required>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="exampleInputPassword1">密   码</label>
+							<input type="password" class="form-control" name="password" id="password" value="" required>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="exampleInputPassword1">状   态</label>
+							<input type="radio" name="status" value="1" checked="checked" />正常 
+							<input type="radio" name="status" value="0"/>无效
+						  </div>
+						  <button type="submit" class="btn btn-default">保 存</button>
+						 </form>
+						 </div>
+		            </div>
+		 </div>
+     </div>
+   </div>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$("#update_userId").hide();
+		$('#addUserForm').ajaxForm({
+			dataType : 'json',
+			success : function(data) {
+				if (data.result) {
+					bootbox.alert("保存成功，将刷新页面", function() {
+						window.location.reload();
+					});
+				} else {
+					showErrors($('#addUserForm'), data.errors);
+				}
+			}
+		});
+	});
+</script>
+
+<#include "/page/foot.htm">

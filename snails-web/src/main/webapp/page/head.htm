@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title>数据挖掘计算平台</title>
+
+<link href="${basePath}/page/css/bootstrap.min.css" rel="stylesheet">
+<link href="${basePath}/page/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${basePath}/page/css/layout.css" rel="stylesheet" />
+<link href="${basePath}/page/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+<!--[if lt IE 9]>
+      <script src="${basePath}/page/js/html5shiv.js"></script>
+      <script src="${basePath}/page/js/respond.min.js"></script>
+    <![endif]-->
+<script type="text/javascript">
+	window.BasePath = "${basePath}";
+	window.ContextPath = "${contextPath}";
+</script>
+<script src="${basePath}/page/js/jquery.min.js"></script>
+<script src="${basePath}/page/js/jquery.min.js"></script>
+<script src="${basePath}/page/echarts/js/echarts.js"></script>
+</head>
+<body>
+  <div id="header">
+  	
+  	<img src="${basePath}/page/img/dmcplogo.png" style="margin-top: 14px;margin-left: 8px;">
+  	
+  <div style="float: right; margin-right: 80px;margin-top: 10px;">
+	<div class="dropdown">
+	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+	    <span class="glyphicon glyphicon-user"></span>${USER_SESSION.name}
+	    <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+	    <li role="presentation"><a role="menuitem" tabindex="-1" href="${basePath}/auth/admin/logout.htm"><span class="glyphicon glyphicon-log-out"></span>注销</a></li>
+	  </ul>
+	</div>
+</div>
+  </div>

@@ -1,9 +1,9 @@
 package net.snails.web.mysql.controller;
 
+import net.snails.entity.mysql.User;
 import net.snails.web.constant.SystemConstant;
 import net.snails.web.constant.ValidateInfoConstant;
 import net.snails.web.mysql.controller.admin.BaseController;
-import net.snails.web.mysql.entity.User;
 import net.snails.web.mysql.service.UserService;
 import net.snails.web.util.HttpUtils;
 import net.snails.web.util.JsonUtil;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -53,11 +54,11 @@ public class LoginController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/login.json", method = RequestMethod.POST)
-	public JsonUtil<String> userLogin(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password,
-			HttpServletRequest request, ModelMap modelMap) {
+	public JsonUtil<String> userLogin(@RequestParam(value = "email") String email,
+			@RequestParam(value = "password") String password, HttpServletRequest request, ModelMap modelMap) {
 		HttpSession session = request.getSession();
 		JsonUtil<String> json = new JsonUtil<String>();
-		User user =null;
+		User user = null;
 		try {
 			if (EmailValidator.getInstance().isValid(email)) {
 				user = userService.getUserByEmail(email);
@@ -79,7 +80,6 @@ public class LoginController extends BaseController {
 				json.getErrors().put("password", ValidateInfoConstant.PASSWORD);
 			}
 
-			
 			if (null == user) {
 				json.getErrors().put("password", ValidateInfoConstant.PASSWORD);
 			}

@@ -1,0 +1,75 @@
+<#include "/page/head.htm">
+<div id="container-layout">
+	<div id="mainContent">
+		<div id="sidebar"><#include "/page/sidebar.htm"></div>
+
+		<div id="content">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">文章列表</h3>
+				</div>
+
+				<div class="panel-body">
+						<#assign articleList=page.getData()>
+						<#list articleList as article>
+						<div class="well well-sm">
+							<h4><a href="${basePath}/admin/ms/article/${article.articleId}.htm">${article.articleTitle}</a></h4>
+							<div style="color:#696969;">
+								${article.articleSummary}
+							</div>
+						<div style="margin-top: 10px;font-family:微软雅黑;color:#708090;">
+							发布时间:${article.articlePostDate?string('yyyy-MM-dd HH:ss')} 來源:<a href="${article.articleUrl}" target="_blank">${article.articleSite}</a></div>
+						</div>
+						</#list>
+
+				</div>
+
+				<div class="panel-footer">
+					<div class="container-fluid">
+						<div class="row show-grid" style="height: 70px;">
+							<div class="col-xs-8" style="margin-top: 0px;">
+								${page.getPaginationStr()}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function deleteUser() {
+		var id_array = new Array();
+		$('input[name="userId"]:checked').each(function() {
+			id_array.push($(this).val());
+		});
+		var ids = id_array.join(',');
+		if (ids.length == 0) {
+			alert("请选中一条记录!");
+			return false;
+		}
+		$.ajax({
+			url : '${basePath}/admin/user/deleteUser.htm',
+			data : {
+				userId : ids
+			},
+			dataType : 'json',
+			success : function(json) {
+			}
+		});
+		window.location.reload();
+	}
+	function updateUser() {
+		var ids = new Array();
+		$('input[name="userId"]:checked').each(function() {
+			ids.push($(this).val());
+		});
+		if (ids.length == 0 || ids.length > 1) {
+			alert("请选中一条记录!");
+			return false;
+		}
+		window.location.href = "${basePath}/admin/user/updateUser.htm?userId="
+				+ ids[0];
+	}
+</script>
+
+<#include "/page/foot.htm">

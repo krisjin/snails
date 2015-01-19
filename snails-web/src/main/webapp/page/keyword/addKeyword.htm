@@ -1,0 +1,32 @@
+<#include "/page/head.htm">
+
+<div id="container-layout">
+	<div id="mainContent">
+		<div id="sidebar"><#include "/page/sidebar.htm"></div>
+		<div id="content">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title" align="center">
+						<span class="glyphicon glyphicon-arrow-left" title="返回" onclick="javascript:history.go(-1);"></span>&nbsp;&nbsp;&nbsp;
+						新增关键词
+					</h3>
+				</div>
+				<div class="panel-body">
+				<form role="form" action="${basePath}/admin/ms/keyword/save.htm" method="post" >
+					  <div class="form-group">
+					    <label for="exampleInputEmail1">关键词名称</label>
+					    <input type="text" class="form-control" id="name" name="name">
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleInputPassword1">关键词内容</label>
+					    <textarea rows="13"  name="content" class="form-control"></textarea>
+					  </div>
+					  <button type="submit" class="btn btn-primary">保&nbsp;&nbsp;存</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<#include "/page/foot.htm">

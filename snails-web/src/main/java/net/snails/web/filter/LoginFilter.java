@@ -11,12 +11,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.snails.entity.mysql.User;
 import net.snails.web.constant.SystemConstant;
-import net.snails.web.mysql.entity.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * TODO 后台登陆拦截
@@ -25,7 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LoginFilter implements Filter {
 
-	protected final Logger logger =LoggerFactory.getLogger(this.getClass());
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}

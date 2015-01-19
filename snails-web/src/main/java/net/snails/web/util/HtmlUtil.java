@@ -20,8 +20,6 @@ public class HtmlUtil {
 	private HtmlUtil() {
 	}
 
-
-
 	public static String removeAllHtmlTag(String str) {
 		Pattern pattern = Pattern.compile(REGXP_HTML_TAG);
 		Matcher matcher = pattern.matcher(str);

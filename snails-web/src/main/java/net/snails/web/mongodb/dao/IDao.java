@@ -19,8 +19,7 @@ public interface IDao<T> {
 	public void deleteAll();
 
 	public void update(T enttiy);
-	
-	public List<T> getAll();
 
+	public List<T> getAll();
 
 }

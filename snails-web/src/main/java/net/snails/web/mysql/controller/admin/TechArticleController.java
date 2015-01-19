@@ -37,7 +37,8 @@ public class TechArticleController {
 		if (articleList != null) {
 
 			for (TechArticle art : articleList) {
-				List<String> summaryList = TextRankSummary.getTopSentenceList(HtmlUtil.removeAllHtmlTag(art.getArticleContent()), 5);
+				List<String> summaryList = TextRankSummary.getTopSentenceList(HtmlUtil.removeAllHtmlTag(art.getArticleContent()),
+						5);
 				String str = Joiner.on("，").join(summaryList);
 				art.setArticleSummary(str.replaceAll("\\s*", "").replaceAll("　　", "") + "。");
 			}

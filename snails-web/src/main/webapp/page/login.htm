@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+
+    <link href="${basePath}/page/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/page/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="${basePath}/page/css/signin.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="${basePath}/page/js/html5shiv.js"></script>
+    <script src="${basePath}/page/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="${basePath}/page/js/jquery.js"></script>
+    <script src="${basePath}/page/js/jquery.form.min.js"></script>
+    <script src="${basePath}/page/js/jquery.watermark.js"></script>
+</head>
+
+<body>
+    <div class="container" style="width:500px;">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="padding-top: 5px;padding-bottom: 5px;font-size: 18pt;font-family:微软雅黑;text-align: center;	color: white;">登录</h3>
+      </div>
+      <div class="panel-body" style="border:solid 1px; border-color: #428bca;">
+        <form class="form-signin" id="loginForm" action="${basePath}/auth/admin/login.json"  method="post">
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">用户名/Email</label>
+		    <input type="text" class="form-control" placeholder="请输入用户名/Email" name="email" autofocus>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">密   码</label>
+		    <input type="password" class="form-control"  placeholder="请输入密码" name="password">
+		  </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">登&nbsp;&nbsp;&nbsp;录</button>
+      </form>
+      </div>
+    </div>
+     </div>
+    
+<script type="text/javascript">
+	function showErrors(id,errors){
+		id.find('p[class=error]').hide();
+		id.find('input,select').removeClass("error");
+		for(var name in errors){
+			var e = id.find('p[for='+name+']');
+			id.find('input[name='+name+'],select[name='+name+']').addClass("error");
+			if(e.length==0){
+				id.find('input[name='+name+'],select[name='+name+']').after('<p for="'+name+'" class="error"></p>');
+				e = id.find('p[for='+name+']');
+			}
+			if(errors[name]!=""){
+				e.html(errors[name]);
+				e.show();
+			}
+		}
+	}
+	$(function() {
+		$('#loginForm').ajaxForm({
+			dataType : 'json',
+			success : function(data) {
+				if (data.result) {
+					location.href="${basePath}/admin/index.htm";			
+				}else{
+					showErrors($('#loginForm'),data.errors);
+					if(data.msg=="change_captcha"){
+						$('#captcha').attr("src","${basePath}/auth/captcha.htm?"+Math.random());
+						$('#loginForm input[name="captcha"]').val('');
+					}
+				}
+			}
+		});
+	});	
+</script>    
+</body>
+</html>

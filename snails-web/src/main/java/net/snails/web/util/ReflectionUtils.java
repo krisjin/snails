@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * TODO 此处填写 class 信息
  * 
- * @author krisjin 
+ * @author krisjin
  * @date 2014-1-27上午6:40:08
  */
 public class ReflectionUtils {
@@ -142,7 +142,8 @@ public class ReflectionUtils {
 	 * @param args
 	 * @return
 	 */
-	public static Object invokeMethod(final Object obj, final String methodName, final Class<?>[] parameterTypes, final Object[] args) {
+	public static Object invokeMethod(final Object obj, final String methodName, final Class<?>[] parameterTypes,
+			final Object[] args) {
 		Method method = getAccessibleMethod(obj, methodName, parameterTypes);
 		if (method == null) {
 			throw new IllegalArgumentException("Could not find method [" + methodName + "] on target [" + obj + "]");

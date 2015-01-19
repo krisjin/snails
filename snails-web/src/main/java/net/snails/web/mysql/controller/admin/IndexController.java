@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
-  * @author krisjin
+ * @author krisjin
  */
 @Controller
 @RequestMapping("/admin")
 public class IndexController extends BaseController {
 
 	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
-	public String login(ModelMap modelMap){
+	public String login(ModelMap modelMap) {
 		return "page/index";
 	}
 
