@@ -6,9 +6,11 @@ import java.util.Date;
 
 import net.snails.scheduler.bloom.TechNewsBloomFilter;
 import net.snails.scheduler.constant.Media;
-import net.snails.scheduler.model.TechNews;
 import net.snails.scheduler.service.TechNewsService;
 import net.snails.scheduler.utils.DateUtil;
+
+import org.snails.entity.mysql.TechNews;
+
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -33,14 +35,15 @@ public class SohuItPipeline implements Pipeline {
 		String url = result.get("url");
 
 		TechNews news = new TechNews();
-		news.setMedia(Media.SOHU_IT);
-		news.setMediaUrl(url);
-		news.setContent(content);
+		news.setNewsMedia("搜狐IT");
+		news.setNewsUrl(url);
+		news.setNewsContent(content);
+		news.setNewsInsertDate(new Date());
 
 		if (StringUtils.isNullOrEmpty(title)) {
 			return;
 		}
-		news.setTitle(title.trim());
+		news.setNewsTitle(title.trim());
 
 		TechNewsBloomFilter bloomFilter = TechNewsBloomFilter.newInstance();
 		if (bloomFilter.contains(url)) {
@@ -48,20 +51,20 @@ public class SohuItPipeline implements Pipeline {
 		}
 		
 		if (StringUtils.isNullOrEmpty(author)) {
-			news.setAuthor("");
+			news.setNewsAuthor("");
 		} else {
 			if (author.length() > 3) {
-				news.setAuthor(author.substring(3));
+				news.setNewsAuthor(author.substring(3));
 			} else {
-				news.setAuthor(author);
+				news.setNewsAuthor(author);
 			}
 		}
 
 		if (date == null) {
-			news.setPostDate(new Date());
+			news.setNewsPostDate(new Date());
 		} else {
 			Date d = DateUtil.convertStringDateTimeToDate(date, "yyyy-MM-dd HH:mm:ss");
-			news.setPostDate(d);
+			news.setNewsPostDate(d);
 		}
 		newsService.addTechNews(news);
 		bloomFilter.put(url);

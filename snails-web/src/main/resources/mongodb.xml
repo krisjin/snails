@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo.xsd        
+        ">
+	<!-- Default bean name is 'mongo' -->
+	<mongo:mongo host="127.0.0.1" port="27017">
+	<!-- <mongo:options /> -->
+	</mongo:mongo>
+
+	<mongo:db-factory dbname="dmcp" mongo-ref="mongo" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+	<mongo:repositories base-package="com.hx.dmcp.mongodb" />
+	
+<!-- 	<bean id="mongoRepositoryFactory" class="org.springframework.data.mongodb.repository.support.MongoRepositoryFactory"> -->
+<!--         <constructor-arg name="mongoOperations" ref="mongoTemplate" /> -->
+<!--     </bean> -->
+
+</beans>

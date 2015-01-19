@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.dmcp.dao.UserDao">
+	<insert id="addUser" parameterType="com.hx.dmcp.entity.User">
+		insert into user(email,name,password,status,createTime) value (#{email},#{name},#{password},#{status},#{createTime})
+		<selectKey resultType="long" keyProperty="userId">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<delete id="deleteUser" parameterType="long">
+		delete from user where userId=#{userId}
+	</delete>
+	
+	<delete id="deleteUsers" parameterType="String">
+		delete from user where userId in (#{userId})
+	</delete>
+	
+	<update id="updateUser" parameterType="com.hx.dmcp.entity.User">
+		update user set email=#{email}, name=#{name},password=#{password},status=#{status},createTime=#{createTime} where userId=#{userId}
+	</update>
+		
+	<select id="getUserWithPage" resultType="com.hx.dmcp.entity.User">
+		select * from user limit #{offset},#{rows}
+	</select>
+	
+	<select id="getTotalUserCounts" resultType="int">
+		select count(*) from user
+	</select>
+	
+	<select id="getUserById" parameterType="long" resultType="com.hx.dmcp.entity.User">
+		select * from user where userId=#{userId}
+	</select>
+	
+	<select id="getUserByEmail" resultType="com.hx.dmcp.entity.User">
+		select * from user where email=#{email}
+	</select>
+
+	<select id="getUserByName" resultType="com.hx.dmcp.entity.User">
+        select * from user where name=#{userName}
+	</select>
+
+    <select id="getUserByPassword" resultType="com.hx.dmcp.entity.User">
+        select * from user where password =#{password}
+    </select>
+</mapper>  

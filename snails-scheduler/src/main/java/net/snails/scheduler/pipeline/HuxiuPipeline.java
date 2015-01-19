@@ -7,9 +7,11 @@ import java.util.Date;
 import net.snails.scheduler.bloom.TechNewsBloomFilter;
 import net.snails.scheduler.constant.Media;
 import net.snails.scheduler.constant.SystemConstant;
-import net.snails.scheduler.model.TechNews;
 import net.snails.scheduler.service.TechNewsService;
 import net.snails.scheduler.utils.DateUtil;
+
+import org.snails.entity.mysql.TechNews;
+
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -35,14 +37,14 @@ public class HuxiuPipeline implements Pipeline {
 		String url = result.get("url");
 
 		TechNews news = new TechNews();
-		news.setMedia(Media.HUXIU);
-		news.setMediaUrl(url);
-		news.setContent(content);
+		news.setNewsMedia("虎嗅");
+		news.setNewsUrl(url);
+		news.setNewsContent(content);
 
 		if (StringUtils.isNullOrEmpty(title)) {
 			return;
 		}
-		news.setTitle(title.trim());
+		news.setNewsTitle(title.trim());
 
 		TechNewsBloomFilter bloomFilter = TechNewsBloomFilter.newInstance();
 
@@ -51,16 +53,16 @@ public class HuxiuPipeline implements Pipeline {
 		}
 
 		if (StringUtils.isNullOrEmpty(author)) {
-			news.setAuthor("");
+			news.setNewsAuthor("");
 		} else {
-			news.setAuthor(author);
+			news.setNewsAuthor(author);
 		}
 
 		if (date == null) {
-			news.setPostDate(new Date());
+			news.setNewsPostDate(new Date());
 		} else {
 			Date d = DateUtil.convertStringDateTimeToDate(date, "yyyy-MM-dd HH:mm:ss");
-			news.setPostDate(d);
+			news.setNewsPostDate(d);
 		}
 		techNewsService.addTechNews(news);
 		bloomFilter.put(url);

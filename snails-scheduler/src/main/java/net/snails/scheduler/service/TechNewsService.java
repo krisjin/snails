@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import net.snails.scheduler.dao.TechNewsMapper;
-import net.snails.scheduler.model.TechNews;
 import net.snails.scheduler.utils.MyBatisUtil;
 
 import org.apache.ibatis.session.SqlSession;
+import org.snails.entity.mysql.TechNews;
 
 /**
  * @author krisjin

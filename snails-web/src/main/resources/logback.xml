@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<jmxConfigurator />
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%t] %-5p [%c:%L] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 调试hibernate使用，将本次sql的参数打印的控制台中 -->
+	<!-- <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/> -->
+	<!-- 调试ehcache集群使用，将所有监控缓存的心跳打印到控制台中 -->
+	<!-- <logger name="net.sf.ehcache" level="ALL"/> -->
+
+	<appender name="rollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/dmcp.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/dactiv-base-curd-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%t] %-5p [%c:%L] - %m%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="com.hx.dmcp.mysql.dao.TechArticleDao" level="DEBUG" />
+	<logger name="com.ibatis" level="DEBUG" />
+	<logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />
+	<logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />
+	<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate"
+		level="DEBUG" />
+	<logger name="java.sql.Connection" level="DEBUG" />
+	<logger name="java.sql.Statement" level="DEBUG" />
+	<logger name="java.sql.PreparedStatement" level="DEBUG" />
+
+
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<!-- <appender-ref ref="com.ibatis" /> -->
+		<appender-ref ref="rollingFile" />
+	</root>
+</configuration>

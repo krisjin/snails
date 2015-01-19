@@ -75,7 +75,7 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.2.3</version>
 		</dependency>
-<dependency>
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.1</version>
@@ -127,11 +127,11 @@
 			<version>5.1.26</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>commons-dbcp</groupId> -->
-<!-- 			<artifactId>commons-dbcp</artifactId> -->
-<!-- 			<version>1.2.2</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>commons-dbcp</groupId> -->
+		<!-- <artifactId>commons-dbcp</artifactId> -->
+		<!-- <version>1.2.2</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
@@ -148,6 +148,13 @@
 			<version>2.0.2</version>
 		</dependency>
 
+
+		<!-- entity component -->
+		<dependency>
+			<groupId>net.snails</groupId>
+			<artifactId>snails-entity</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 	<build>

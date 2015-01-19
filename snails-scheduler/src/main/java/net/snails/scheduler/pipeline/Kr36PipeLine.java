@@ -6,9 +6,11 @@ import java.util.Date;
 
 import net.snails.scheduler.bloom.TechNewsBloomFilter;
 import net.snails.scheduler.constant.Media;
-import net.snails.scheduler.model.TechNews;
 import net.snails.scheduler.service.TechNewsService;
 import net.snails.scheduler.utils.DateUtil;
+
+import org.snails.entity.mysql.TechNews;
+
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -33,29 +35,31 @@ public class Kr36PipeLine implements Pipeline {
 		String author = result.get("author");
 
 		TechNews news = new TechNews();
-		news.setMedia(Media.KR36);
-		news.setMediaUrl(url);
-		news.setContent(content);
+		news.setNewsMedia("36氪");
+		news.setNewsUrl(url);
+		news.setNewsContent(content);
+		news.setNewsInsertDate(new Date());
+		
 		if (StringUtils.isNullOrEmpty(title)) {
 			return;
 		}
-		news.setTitle(title.trim());
+		news.setNewsTitle(title.trim());
 		TechNewsBloomFilter bloomFilter = TechNewsBloomFilter.newInstance();
 		if (bloomFilter.contains(url)) {
 			return;
 		}
 
 		if (StringUtils.isNullOrEmpty(author)) {
-			news.setAuthor("");
+			news.setNewsAuthor("");
 		} else {
-			news.setAuthor(author);
+			news.setNewsAuthor(author);
 		}
 
 		if (date == null) {
-			news.setPostDate(new Date());
+			news.setNewsPostDate(new Date());
 		} else {
 			Date d = DateUtil.convertStringDateTimeToDate(DateUtil.parse36KrArticlePostDate(date), "yyyy-MM-dd HH:mm:ss");
-			news.setPostDate(d);
+			news.setNewsPostDate(d);
 		}
 		techNewsService.addTechNews(news);
 		bloomFilter.put(url);

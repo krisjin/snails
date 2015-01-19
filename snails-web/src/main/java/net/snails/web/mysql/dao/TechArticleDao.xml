@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.dmcp.mysql.dao.TechArticleDao">
+	<insert id="addTechArticle" parameterType="com.hx.dmcp.mysql.entity.TechArticle">
+		INSERT INTO
+		tech_article(article_title,article_content,article_post_date,article_url,article_site,article_tag)
+		VALUES(#{articleTitle},#{articleContent},#{articlePostDate},#{articleUrl},#{articleSite},#{articleTag})
+		<selectKey resultType="int" keyProperty="articleId">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<delete id="deleteTechArticle" parameterType="int">
+		delete from tech_article where article_id=#{articleId}
+	</delete>
+	
+	<update id="updateTechArticle" parameterType="com.hx.dmcp.mysql.entity.TechArticle">
+		update tech_article set aritlce_title=#{articleTitle}, article_content=#{articleContent} where article_id=#{articleId}
+	</update>
+		
+	<select id="getTechArticleWithPage" resultType="com.hx.dmcp.mysql.entity.TechArticle">
+		select * from tech_article order by article_post_date desc limit #{offset},#{rows}
+	</select>
+	
+	<select id="getCounts" resultType="long">
+		select count(*) from tech_article
+	</select>
+	
+	<select id="getTechArticleById" parameterType="String" resultType="com.hx.dmcp.mysql.entity.TechArticle">
+		select * from tech_article where article_id=#{articleId}
+	</select>
+	
+	<select id="getChartTechArticle"  parameterType="String" resultType="com.hx.dmcp.mysql.entity.TechArticle">
+		select n.newsTitle,n.newsContent,n.newsPosttime from news n
+		where date_format(n.newsPosttime, "%Y-%m-%d")  <![CDATA[ >= ]]> date_format(#{startDate},"%Y-%m-%d")
+		 and date_format(n.newsPosttime, "%Y-%m-%d")  <![CDATA[ <= ]]> date_format(#{endDate},"%Y-%m-%d")
+	
+	</select>
+	
+</mapper>  

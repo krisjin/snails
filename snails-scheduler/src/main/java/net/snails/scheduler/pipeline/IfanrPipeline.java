@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.Date;
 
 import net.snails.scheduler.bloom.TechNewsBloomFilter;
-import net.snails.scheduler.constant.Media;
 import net.snails.scheduler.constant.SystemConstant;
-import net.snails.scheduler.model.TechNews;
 import net.snails.scheduler.service.TechNewsService;
 import net.snails.scheduler.utils.DateUtil;
+
+import org.snails.entity.mysql.TechNews;
+
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -35,13 +36,14 @@ public class IfanrPipeline implements Pipeline {
 
 		TechNews techNews = new TechNews();
 
-		techNews.setMedia(Media.IFANR);
-		techNews.setMediaUrl(url);
-		techNews.setContent(content);
+		techNews.setNewsMedia("爱范儿");
+		techNews.setNewsUrl(url);
+		techNews.setNewsContent(content);
+		techNews.setNewsInsertDate(new Date());
 		if (StringUtils.isNullOrEmpty(title)) {
 			return;
 		}
-		techNews.setTitle(title.trim());
+		techNews.setNewsTitle(title.trim());
 
 		TechNewsBloomFilter bloomFilter = TechNewsBloomFilter.newInstance();
 		if (bloomFilter.contains(url)) {
@@ -49,16 +51,16 @@ public class IfanrPipeline implements Pipeline {
 		}
 
 		if (StringUtils.isNullOrEmpty(author)) {
-			techNews.setAuthor("");
+			techNews.setNewsAuthor("");
 		} else {
-			techNews.setAuthor(author);
+			techNews.setNewsAuthor(author);
 		}
 
 		if (date == null) {
-			techNews.setPostDate(new Date());
+			techNews.setNewsPostDate(new Date());
 		} else {
 			Date d = DateUtil.convertStringDateTimeToDate(DateUtil.parseIfanrPostDate(date), "yyyy-MM-dd HH:mm");
-			techNews.setPostDate(d);
+			techNews.setNewsPostDate(d);
 		}
 		techNewsService.addTechNews(techNews);
 		bloomFilter.put(url);

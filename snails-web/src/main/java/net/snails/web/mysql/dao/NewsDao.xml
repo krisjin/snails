@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.dmcp.mysql.dao.NewsDao">
+	<insert id="addNews" parameterType="com.hx.dmcp.mysql.entity.News">
+		insert into news(newsTitle,newsContent,newsMedia,newsPosttime,newsUrl) value (#{newsTitle},#{newsContent},#{newsMedia},#{newsPosttime},#{newsUrl})
+		<selectKey resultType="long" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<delete id="deleteNews" parameterType="long">
+		delete from news where id=#{id}
+	</delete>
+	
+	<delete id="deleteNewses" parameterType="String">
+		delete from news where id in (#{id})
+	</delete>
+	
+	<update id="updateNews" parameterType="com.hx.dmcp.mysql.entity.News">
+		update news set newsTitle=#{newsTitle}, newsMedia=#{newsMedia},newsUrl=#{newsUrl},newsContent=#{newsContent} where id=#{id}
+	</update>
+		
+	<select id="getNewsWithPage" resultType="com.hx.dmcp.mysql.entity.News">
+		select * from news limit #{offset},#{rows}
+	</select>
+	
+	<select id="getTotalNewsCounts" resultType="long">
+		select count(*) from news
+	</select>
+	
+	<select id="getNewsOneById" parameterType="long" resultType="com.hx.dmcp.mysql.entity.News">
+		select * from news where id=#{id}
+	</select>
+	
+	<select id="getNewsById" parameterType="String" resultType="com.hx.dmcp.mysql.entity.News">
+		select * from news where id in (#{id})
+	</select>
+	
+	<resultMap type="com.hx.dmcp.mysql.entity.News" id="newsMap">
+		<result property="newsTitle" column="newsTitle"/>
+		<result property="newsContent" column="newsContent"/>
+		<result property="newsPosttime" column="newsPosttime"/>
+	</resultMap>
+
+	<select id="getInflationNews"  parameterType="String" resultType="com.hx.dmcp.mysql.entity.News">
+		select n.newsTitle,n.newsContent,n.newsPosttime from news n
+		where date_format(n.newsPosttime, "%Y-%m-%d")  <![CDATA[ >= ]]> date_format(#{startDate},"%Y-%m-%d")
+		 and date_format(n.newsPosttime, "%Y-%m-%d")  <![CDATA[ <= ]]> date_format(#{endDate},"%Y-%m-%d")
+	
+	</select>
+</mapper>  

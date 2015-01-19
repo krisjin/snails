@@ -6,12 +6,12 @@
 	<insert id="addTechNews" parameterType="TechNews"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
-		tech_news(title,content,post_date,author,media_url,media,thumbnails_url)
-		VALUES(#{title},#{content},#{postDate},#{author},#{mediaUrl},#{media},#{thumbnailsUrl})
+		tech_news(news_title,news_content,news_post_date,news_author,news_url,news_media,news_insert_date)
+		VALUES(#{newsTitle},#{newsContent},#{newsPostDate},#{newsAuthor},#{newsUrl},#{news_media},#{newsInsertDate})
 	</insert>
 
 	<select id="selectTechNewsUrls" resultType="string" parameterType="java.util.Map">
-		select media_url from tech_news limit #{offset},#{rows}
+		select news_url from tech_news limit #{offset},#{rows}
 	</select>
 	
 	<select id="getTechNewsTotal" resultType="long">
