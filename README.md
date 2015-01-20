@@ -10,7 +10,7 @@ snails 主要完成数据的采集，数据采集是使用的[webmaigc](https://
 > * snails-dao (数据访问层)
 > * snails-entity（实体模型，数据的抓取存储，数据的展现都是依赖它）
 > * snails-nosql （使用多种nosql实现应对海量数据存储）
-> * snails-scheduler（榨取数据任务调度任务）
+> * snails-scheduler（抓取数据任务调度任务）
 > * snails-service (服务层)
 > * snails-web (后台管理)
 
