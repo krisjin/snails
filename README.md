@@ -12,4 +12,13 @@ snails 主要完成数据的采集，数据采集是使用的[webmaigc](https://
 > * snails-nosql （使用多种nosql实现应对海量数据存储）
 > * snails-scheduler（榨取数据任务调度任务）
 > * snails-service (服务层)
-> * snails-web 后台管理
+> * snails-web (后台管理)
+
+数据抓取运行
+======
+直接运行snails-scheduler，使用jetty(测试环境)。在运行前看下job.properties文件的使用，数据库配置,数据存储使用了mybatis。
+调度任务在spring的配置文件配置（quartz）
+
+数据分析后台
+======
+snails-web 是个web项目可以直接运行
