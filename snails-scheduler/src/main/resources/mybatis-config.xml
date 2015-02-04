@@ -7,6 +7,7 @@
 	<properties resource="application.properties" />
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="cacheEnabled" value="false"/>
 	</settings>
 
 	<typeAliases>
