@@ -2,6 +2,7 @@ package net.snails.web.mysql.controller.admin;
 
 import java.util.List;
 
+import net.snails.common.algorithm.summary.Summary;
 import net.snails.common.algorithm.summary.TextRankSummary;
 import net.snails.web.mysql.entity.TechArticle;
 import net.snails.web.mysql.service.TechArticleService;
@@ -35,12 +36,10 @@ public class TechArticleController {
 		List<TechArticle> articleList = page.getData();
 
 		if (articleList != null) {
-
+			Summary summary = new TextRankSummary();
 			for (TechArticle art : articleList) {
-				List<String> summaryList = TextRankSummary.getTopSentenceList(HtmlUtil.removeAllHtmlTag(art.getArticleContent()),
-						5);
-				String str = Joiner.on("，").join(summaryList);
-				art.setArticleSummary(str.replaceAll("\\s*", "").replaceAll("　　", "") + "。");
+				String str = summary.toSummary(art.getArticleContent(), 12);
+				art.setArticleSummary(str);
 			}
 		}
 

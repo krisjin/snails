@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.snails.common.algorithm.summary.Summary;
 import net.snails.common.algorithm.summary.TextRankSummary;
 import net.snails.web.mongodb.entity.News;
 import net.snails.web.mongodb.service.NewsService;
 import net.snails.web.util.DateUtil;
-import net.snails.web.util.HtmlUtil;
 import net.snails.web.util.Pagination;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +60,10 @@ public class NewsController {
 			news = newsServiceMongoDB.findNewsWithPage(page, newsPosttime);
 		}
 
+		Summary summary =new TextRankSummary();
 		for (News n : news) {
-			List<String> summaryList = TextRankSummary.getTopSentenceList(HtmlUtil.removeAllHtmlTag(n.getNewsContent()), 5);
-			String str = Joiner.on("，").join(summaryList);
-			n.setSummary(str.replaceAll("\\s*", "").replaceAll("　　", "") + "。");
+			String str = summary.toSummary(n.getNewsContent(), 12);
+			n.setSummary(str);
 		}
 		page.setData(news);
 		Map args = new HashMap();
