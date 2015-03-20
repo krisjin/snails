@@ -1,4 +1,4 @@
-package org.snails.redis;
+package org.snails.nosql.redis;
 
 import java.util.List;
 import java.util.regex.Pattern;
