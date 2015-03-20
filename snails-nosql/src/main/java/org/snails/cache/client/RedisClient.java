@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.snails.cache.RedisCache;
 
-import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
@@ -16,7 +15,7 @@ public class RedisClient implements RedisCache {
 
 	private ShardedJedisPool jedisPool;
 
-	private static Logger logger = LoggerFactory.getLogger(RedisCache.class);
+	private static Logger logger = LoggerFactory.getLogger(RedisClient.class);
 
 	public RedisClient(ShardedJedisPool jedisPool) {
 		this.jedisPool = jedisPool;
@@ -25,7 +24,6 @@ public class RedisClient implements RedisCache {
 	@Override
 	public Long del(String... keys) {
 		ShardedJedis jedis = jedisPool.getResource();
-
 		try {
 			return jedis.del("");
 		} finally {
