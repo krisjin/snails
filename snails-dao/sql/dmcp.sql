@@ -214,6 +214,26 @@ CREATE TABLE `user_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Table structure for `company`
+-- ----------------------------
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE `company` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `companyName` varchar(40) DEFAULT NULL,
+  `industry` varchar(100) DEFAULT NULL,
+  `scale` varchar(50) DEFAULT NULL,
+  `site` varchar(100) DEFAULT NULL,
+  `financing` varchar(50) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `logo` varchar(100) DEFAULT NULL,
+  `map` varchar(100) DEFAULT NULL,
+  `manager` varchar(50) DEFAULT NULL,
+  `managerAvatar` varchar(100) DEFAULT NULL,
+  `introduction` text,
+  `location` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
