@@ -10,13 +10,14 @@
 	</parent>
 	<artifactId>snails-scheduler</artifactId>
 	<packaging>war</packaging>
-	<name>snails-scheduler Maven Webapp</name>
+	<name>snails-scheduler</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<spring.version>3.2.4.RELEASE</spring.version>
 		<slf4j.version>1.7.6</slf4j.version>
 		<logback.version>1.1.1</logback.version>
+        <jetty.version>8.1.8.v20121106</jetty.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -159,5 +160,58 @@
 	</dependencies>
 	<build>
 		<finalName>snails-scheduler</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                    <!--<connectors>-->
+                        <!--<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">-->
+                            <!--<port>8888</port>-->
+                            <!--<maxIdleTime>60000</maxIdleTime>-->
+                        <!--</connector>-->
+                    <!--</connectors>-->
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <scanTargetPatterns>
+                        <scanTargetPattern>
+                            <directory>src/main</directory>
+                            <includes>
+                                <include>**/*.xml</include>
+                                <include>**/*.properties</include>
+                            </includes>
+                        </scanTargetPattern>
+                    </scanTargetPatterns>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 </project>

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 /**
  * @author krisjin
  */
-@Controller
 public class BaseController {
 
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());

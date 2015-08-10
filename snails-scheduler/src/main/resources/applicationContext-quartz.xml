@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-
+    <bean id="executeLagouJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="lagouJobService" />
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
 
 	<bean id="executeCsdnJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
@@ -67,6 +74,15 @@
 		</property>
 	</bean>
 
+
+    <bean id="lagouTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="executeLagouJob" />
+        </property>
+        <property name="cronExpression">
+            <value>00 47 0 * * ?</value>
+        </property>
+    </bean>
 
 	<bean id="csdnTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
@@ -134,20 +150,23 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="csdnTrigger" />
+				<!--<ref bean="csdnTrigger" />-->
 
-				<ref bean="oscTrigger" />
+				<!--<ref bean="oscTrigger" />-->
 
-				<ref bean="tecentTechTrigger" />
+				<!--<ref bean="tecentTechTrigger" />-->
 
-				<ref bean="sohuItTrigger" />
+				<!--<ref bean="sohuItTrigger" />-->
 
-				<ref bean="kr36Trigger" />
+				<!--<ref bean="kr36Trigger" />-->
 
-				<ref bean="huxiuTrigger" />
+				<!--<ref bean="huxiuTrigger" />-->
 
-				<ref bean="ifanrTrigger" />
-				
+				<!--<ref bean="ifanrTrigger" />-->
+
+
+				<ref bean="lagouTrigger" />
+
 			</list>
 		</property>
 	</bean>
