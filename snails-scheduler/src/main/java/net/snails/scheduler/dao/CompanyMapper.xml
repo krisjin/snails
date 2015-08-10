@@ -5,8 +5,8 @@
 
     <insert id="add" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
-		company(industry,scale,site,financing,address,logo,manager,managerAvatar,companyName)
-		VALUES(#{industry},#{scale},#{site},#{financing},#{address},#{logo},#{manager},#{managerAvatar},#{companyName})
+		company(industry,scale,site,financing,address,logo,manager,managerAvatar,companyName,introduction,location)
+		VALUES(#{industry},#{scale},#{site},#{financing},#{address},#{logo},#{manager},#{managerAvatar},#{companyName},#{introduction},#{location})
 	</insert>
 
 </mapper>

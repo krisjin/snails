@@ -1,4 +1,4 @@
-package net.snails.scheduler.model;
+package net.snails.entity.mysql;
 
 /**
  * Created by admin on 2015/8/10.
@@ -26,10 +26,6 @@ public class Company {
     private String manager;
 
     private String managerAvatar;
-
-    private String location;
-
-    private String introduction;
 
     public long getId() {
         return id;
@@ -118,21 +114,5 @@ public class Company {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
     }
 }

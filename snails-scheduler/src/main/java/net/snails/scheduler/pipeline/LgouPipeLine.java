@@ -21,13 +21,18 @@ public class LgouPipeLine implements Pipeline {
         String industry = result.get("industry");
         String financing = result.get("financing");
         String scale = result.get("scale");
+        String location = result.get("location");
+        String introduction = result.get("introduction");
+        String site = result.get("site");
 
         Company company = new Company();
         company.setFinancing(financing);
         company.setIndustry(industry);
         company.setScale(scale);
         company.setCompanyName(companyName);
-
+        company.setSite(site);
+        company.setLocation(location);
+        company.setIntroduction(introduction);
         if (StringUtils.isNullOrEmpty(companyName)) {
             return;
         }

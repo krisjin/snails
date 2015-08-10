@@ -18,11 +18,18 @@ public class LagouPageProcessor implements PageProcessor {
         page.addTargetRequests(links1);
 
         page.putField("companyName", page.getHtml().xpath("//h1[@class='ellipsis']/a/text()").toString());
-
-        page.putField("industry", page.getHtml().xpath("//div[@class='item_content']/li[@class='industry']/span/text()").toString());
-        page.putField("financing", page.getHtml().xpath("//div[@class='item_content']/li[@class='financing']/span/text()").toString());
-        page.putField("scale", page.getHtml().xpath("//div[@class='item_content']/li[@class='industry']/span/text()").toString());
-
+        
+        page.putField("industry", page.getHtml().xpath("//div[@class='item_content']//li[@class='industry']/span/text()").toString());
+        
+        page.putField("financing", page.getHtml().xpath("//div[@class='item_content']//li[@class='financing']/span/text()").toString());
+        
+        page.putField("scale", page.getHtml().xpath("//div[@class='item_content']//li[@class='scale']/span/text()").toString());
+        
+        page.putField("location", page.getHtml().xpath("//div[@class='item_content']//li[@class='location']/span/text()").toString());
+        
+        page.putField("introduction", page.getHtml().xpath("//div[@class='company_intro_text']/outerHtml()").toString());
+        
+        page.putField("site", page.getHtml().xpath("//h1[@class='ellipsis']//a/@href").toString());
 
         if (page.getResultItems().get("companyName") == null) {
             page.setSkip(true);

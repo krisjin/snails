@@ -80,7 +80,7 @@
             <ref bean="executeLagouJob" />
         </property>
         <property name="cronExpression">
-            <value>00 47 0 * * ?</value>
+            <value>00 49 1 * * ?</value>
         </property>
     </bean>
 
